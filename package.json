@@ -1,0 +1,26 @@
+{
+  "name": "templating",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "dev": "node --watch-path=./src app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/avillucas/templating.git"
+  },
+  "keywords": [],
+  "author": "avillucas@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/avillucas/templating/issues"
+  },
+  "homepage": "https://github.com/avillucas/templating#readme",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-ejs-layouts": "^2.5.1"
+  }
+}

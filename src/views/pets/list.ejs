@@ -1,0 +1,27 @@
+<a href="pets/add/">Agregar una mascota</a>
+<table>
+  <thead>
+    <th>Nombre</th>
+    <th>Edad</th>
+    <th>Tipo</th>
+    <th>Acciones</th>
+  </thead>
+  <tbody>
+    <% if (user) { %>
+        <% pets.forEach(function(pet,index){ %>
+        <tr>
+            <td><%= pet.name %></td>
+            <td><%= pet.edad %></td>
+            <td><%= pet.tipo %></td>
+            <td>
+              <a href="/pets/edit/<%= index %>">Editar</a>
+              <a href="/pets/delete/<%= index %>">Borrar</a>
+            </td>
+        </tr>
+        <% }); %>
+        <% }else{ %>
+    <h1>No existen mascotas cargadas</h1>
+    <% } %>
+
+  </tbody>
+</table>

@@ -1,0 +1,42 @@
+ [
+    {
+        "id": 1,
+        "nombre": "Boby",
+        "edad": 10,
+        "size": "Mediano",
+        "raza": "Desconocido",
+        "tipo": "perro"
+    },
+    {
+        "id": 1,
+        "nombre": "Boby",
+        "edad": 10,
+        "size": "Mediano",
+        "raza": "Desconocido",
+        "tipo": "perro"
+    },
+    {
+        "id": 1,
+        "nombre": "Boby",
+        "edad": 10,
+        "size": "Mediano",
+        "raza": "Desconocido",
+        "tipo": "perro"
+    },
+    {
+        "id": 1,
+        "nombre": "Boby",
+        "edad": 10,
+        "size": "Mediano",
+        "raza": "Desconocido",
+        "tipo": "perro"
+    },
+    {
+        "id": 1,
+        "nombre": "Garfield",
+        "edad": 5,
+        "size": "Grande",
+        "raza": "Orange",
+        "tipo": "gato"
+    }
+]
