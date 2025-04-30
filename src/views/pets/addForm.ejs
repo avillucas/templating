@@ -1,0 +1,38 @@
+<form>
+  <div class="mb-3">
+    <label for="petName" class="form-label">Nombre</label>
+    <input type="text" class="form-control" id="petName" aria-describedby="petNameValue">
+    <div id="petNameValue" class="form-text">Definir el nombre de la mascota</div>
+  </div>
+  <div class="mb-3">
+    <label for="petAge" class="form-label">Edad</label>
+    <input type="number" min="1" max="150" class="form-control" id="petAge" aria-describedby="petAgeValue">
+    <div id="petAgeValue" class="form-text">Definir la edad en meses</div>
+  </div>
+  <div class="mb-3">
+    <select class="form-select" aria-label="mediano">
+      <option selected>Seleccione el tamaño</option>
+      <option value="chico">Chico ( 1 a 5kg )</option>
+      <option value="mediano">Mediano ( 6 a 15kg )</option>
+      <option value="grande">Grande ( 16 a 50kg )</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="petRaza" class="form-label">Raza</label>
+    <input type="text" class="form-control" id="petRaza" aria-describedby="petRazaValue">
+    <div id="petRazaValue" class="form-text">Definir el nombre de la mascota</div>
+  </div>
+
+  <div class="mb-3">
+    <select class="form-select" aria-label="Perro">
+      <option selected>Tipo</option>
+      <option value="gato">Gato</option>
+      <option value="perro">Perro</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Crear</button>
+</form>
+
+
+
+

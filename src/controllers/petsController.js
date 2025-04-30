@@ -1,7 +1,9 @@
+
+
+var path = require('path');
 const fs = require('fs');
-const readJson = fs.readFileSync('../data/pets.json');
+const readJson = fs.readFileSync(path.join( __dirname,'../data/pets.json'));
 let pets = JSON.parse(readJson);
-console.log('pets:', pets);
 module.exports = {
     listPets: async (req, res) => {
         res.render('pets/list', { 'pets': pets, 'title': 'Dashboard' });
@@ -21,7 +23,7 @@ module.exports = {
         return res.status(302).redirect('/pets');
     },
     addPetForm: async (req, res) => {
-        res.render('pets/addform', { 'title': 'Agregar Mascota' });
+        res.render('pets/addform.ejs', { 'title': 'Agregar Mascota' });
     },
     addPet: async (req, res) => {
         const data = bodyParser.json();
@@ -34,7 +36,7 @@ module.exports = {
     showPet: async (req, res) => {
         const id = req.params['id'];
         const pet = pets[id];
-        res.render('pets/show', { 'pet': pet, 'title': 'Ver Mascota' });
+        res.render('pets/show.ejs', { 'pet': pet, 'title': 'Ver Mascota' });
     },
     deletePet: async (req, res) => {
         const id = req.params['id'];

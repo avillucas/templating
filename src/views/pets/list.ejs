@@ -1,27 +1,44 @@
-<a href="pets/add/">Agregar una mascota</a>
-<table>
-  <thead>
-    <th>Nombre</th>
-    <th>Edad</th>
-    <th>Tipo</th>
-    <th>Acciones</th>
-  </thead>
-  <tbody>
-    <% if (user) { %>
-        <% pets.forEach(function(pet,index){ %>
-        <tr>
+<%- contentFor('body') %>
+<div class="row">
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">Mascotas</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <a href="/pets/add" type="button" class="btn btn-sm btn-outline-secondary">
+
+          Agregar mascota
+        </a>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped table-sm">
+        <thead>
+          <th>Nombre</th>
+          <th>Edad</th>
+          <th>Tipo</th>
+          <th>Acciones</th>
+        </thead>
+        <tbody>
+          <% if (pets) { %>
+          <% pets.forEach(function(pet,index){ %>
+          <tr>
             <td><%= pet.name %></td>
             <td><%= pet.edad %></td>
             <td><%= pet.tipo %></td>
             <td>
-              <a href="/pets/edit/<%= index %>">Editar</a>
-              <a href="/pets/delete/<%= index %>">Borrar</a>
+              <a class="btn btn-info" type="button" href="/pets/<%= index %>">Ver</a>
+              <a class="btn btn-primary" type="button" href="/pets/edit/<%= index %>">Editar</a>
+              <a class="btn btn-danger rounded-pill px-3" type="button" href="/pets/delete/<%= index %>">Borrar</a>
             </td>
-        </tr>
-        <% }); %>
-        <% }else{ %>
-    <h1>No existen mascotas cargadas</h1>
-    <% } %>
+          </tr>
+          <% }); %>
+          <% }else{ %>
+          <h1>No existen mascotas cargadas</h1>
+          <% } %>
 
-  </tbody>
-</table>
+        </tbody>
+      </table>
+    </div>
+</div>
+</main>
+</div>

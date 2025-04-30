@@ -8,7 +8,6 @@ const {
     showPet,
     addPetForm,
     addPet,
-    addPet,
     deletePet
 } = require('../controllers/petsController');
 
