@@ -5,7 +5,6 @@
       <h1 class="h2">Mascotas</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
         <a href="/pets/add" type="button" class="btn btn-sm btn-outline-secondary">
-
           Agregar mascota
         </a>
       </div>
@@ -22,7 +21,7 @@
           <% if (pets) { %>
           <% pets.forEach(function(pet,index){ %>
           <tr>
-            <td><%= pet.name %></td>
+            <td><%= pet.nombre %></td>
             <td><%= pet.edad %></td>
             <td><%= pet.tipo %></td>
             <td>

@@ -1,6 +1,5 @@
- [
+[
     {
-        "id": 1,
         "nombre": "Boby",
         "edad": 10,
         "size": "Mediano",
@@ -8,31 +7,27 @@
         "tipo": "perro"
     },
     {
-        "id": 1,
-        "nombre": "Boby",
-        "edad": 10,
+        "nombre": "Frida",
+        "edad": 2,
+        "size": "Grande",
+        "raza": "Savannah",
+        "tipo": "gato"
+    },
+    {
+        "nombre": "Roma",
+        "edad": 1,
         "size": "Mediano",
-        "raza": "Desconocido",
+        "raza": "Siames",
+        "tipo": "gato"
+    },
+    {
+        "nombre": "Rambo",
+        "edad": 2,
+        "size": "Mediano",
+        "raza": "Pitbull",
         "tipo": "perro"
     },
     {
-        "id": 1,
-        "nombre": "Boby",
-        "edad": 10,
-        "size": "Mediano",
-        "raza": "Desconocido",
-        "tipo": "perro"
-    },
-    {
-        "id": 1,
-        "nombre": "Boby",
-        "edad": 10,
-        "size": "Mediano",
-        "raza": "Desconocido",
-        "tipo": "perro"
-    },
-    {
-        "id": 1,
         "nombre": "Garfield",
         "edad": 5,
         "size": "Grande",

@@ -1,46 +1,29 @@
-
-
-var path = require('path');
-const fs = require('fs');
-const readJson = fs.readFileSync(path.join( __dirname,'../data/pets.json'));
-let pets = JSON.parse(readJson);
+const model = require('../models/petsModel');
 module.exports = {
     listPets: async (req, res) => {
         res.render('pets/list', { 'pets': pets, 'title': 'Dashboard' });
     },
     editPetForm: async (req, res) => {
-        const id = req.params['id'];
-        const pet = pets[id];
+        const pet = model.getOne(req.params.petId);
         res.render('pets/editform', { 'pet': pet, 'title': 'Editar mascota' });
     },
     editPet: async (req, res) => {
-        const id = req.params['id'];
-        const data = bodyParser.json();
-        pets[id] = {
-            'name': data.name,
-            //etc
-        };
+        model.save(req.params.petId, bodyParser.json())
         return res.status(302).redirect('/pets');
     },
     addPetForm: async (req, res) => {
         res.render('pets/addform.ejs', { 'title': 'Agregar Mascota' });
     },
     addPet: async (req, res) => {
-        const data = bodyParser.json();
-        pets.push({
-            'name': data.name,
-            //etc
-        })
+        model.save(bodyParser.json(), {})
         return res.status(302).redirect('/pets');
     },
     showPet: async (req, res) => {
-        const id = req.params['id'];
-        const pet = pets[id];
+        const pet = model.getOne(req.params.petId)
         res.render('pets/show.ejs', { 'pet': pet, 'title': 'Ver Mascota' });
     },
     deletePet: async (req, res) => {
-        const id = req.params['id'];
-        delete pets[id];
+        const pet = model.delete(req.params.petId);
         return res.status(302).redirect('/pets');
     }
 }

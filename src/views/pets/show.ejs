@@ -1,1 +1,20 @@
-Mostrar datos de la mascota
+<%- contentFor('body') %>
+<div class="row">
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">Sobre la mascota <%= pet.nombre %></h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <a href="/pets" type="button" class="btn btn-sm btn-outline-secondary">
+          Volver al listado
+        </a>
+      </div>
+    </div>
+    <ul>
+      <li><strong>Nombre:</strong> <%= pet.nombre %></li>
+      <li><strong>Edad:</strong> <%= pet.edad %></li>
+      <li><strong>Tipo:</strong> <%= pet.tipo %></li>
+      <li><strong>Tamaño:</strong> <%= pet.size %></li>
+      <li><strong>Raza:</strong> <%= pet.raza %></li>
+    </ul>
+  </main>
+</div>
