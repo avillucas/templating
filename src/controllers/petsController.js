@@ -6,14 +6,14 @@ module.exports = {
     },
     editPetForm: async (req, res) => {
         const pet = await model.getOne(req.params.petId);
-        res.render('pets/editform', { 'pet': pet, 'title': 'Editar mascota' });
+        res.render('pets/editForm', { 'pet': pet, 'title': 'Editar mascota' });
     },
     editPet: async (req, res) => {
         model.save(req.params.petId, bodyParser.json())
         return res.status(302).redirect('/pets');
     },
     addPetForm: async (req, res) => {
-        res.render('pets/addform.ejs', { 'title': 'Agregar Mascota' });
+        res.render('pets/addForm.ejs', { 'title': 'Agregar Mascota' });
     },
     addPet: async (req, res) => {
         model.save(bodyParser.json(), {})

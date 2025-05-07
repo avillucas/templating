@@ -6,6 +6,7 @@ module.exports = {
         return JSON.parse(readJson);
     },
     getOne: async (petId) => {
+        const pets = JSON.parse(readJson);
         if (!pets[petId]) {
             throw new Error('The pet do not exists');
         }
