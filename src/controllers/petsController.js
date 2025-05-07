@@ -1,11 +1,11 @@
 const model = require('../models/petsModel');
 module.exports = {
     listPets: async (req, res) => {
-        const pets = model.getAll(req.params.petId)
+        const pets = await model.getAll(req.params.petId)
         res.render('pets/list', { 'pets': pets, 'title': 'Dashboard' });
     },
     editPetForm: async (req, res) => {
-        const pet = model.getOne(req.params.petId);
+        const pet = await model.getOne(req.params.petId);
         res.render('pets/editform', { 'pet': pet, 'title': 'Editar mascota' });
     },
     editPet: async (req, res) => {
@@ -20,11 +20,11 @@ module.exports = {
         return res.status(302).redirect('/pets');
     },
     showPet: async (req, res) => {
-        const pet = model.getOne(req.params.petId)
+        const pet = await model.getOne(req.params.petId)
         res.render('pets/show.ejs', { 'pet': pet, 'title': 'Ver Mascota' });
     },
     deletePet: async (req, res) => {
-        const pet = model.delete(req.params.petId);
+        const pet = await model.delete(req.params.petId);
         return res.status(302).redirect('/pets');
     }
 }

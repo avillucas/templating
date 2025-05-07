@@ -19,18 +19,18 @@
         </thead>
         <tbody>
           <% if (pets) { %>
-            <% for(var index = 0; index < pets.length; index++) { %>
+          <% pets.forEach(function(pet,index){ %>
           <tr>
-            <td><%= pets[i].nombre %></td>
-            <td><%= pets[i].edad %></td>
-            <td><%= pets[i].tipo %></td>
+            <td><%= pet.nombre %></td>
+            <td><%= pet.edad %></td>
+            <td><%= pet.tipo %></td>
             <td>
               <a class="btn btn-info" type="button" href="/pets/<%= index %>">Ver</a>
               <a class="btn btn-primary" type="button" href="/pets/edit/<%= index %>">Editar</a>
               <a class="btn btn-danger rounded-pill px-3" type="button" href="/pets/delete/<%= index %>">Borrar</a>
             </td>
           </tr>
-          <% } %>
+          <% }); %>
           <% }else{ %>
           <h1>No existen mascotas cargadas</h1>
           <% } %>
