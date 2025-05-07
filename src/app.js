@@ -15,11 +15,10 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
 
-app.set('layout', path.join( __dirname,'./src/views/layout/layout.ejs'))
+const pat = pathl.join( __dirname,'./src/views/layout/layout.ejs');
+app.set('layout', pathl )
 app.use(expressLayouts)
 
 app.use('/pets',petsRoutes)
 app.use('/',dashboardRoutes)
-
-
 app.listen(PORT, () => console.log(`json-bread listening on port ${PORT}!`));

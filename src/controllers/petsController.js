@@ -1,6 +1,7 @@
 const model = require('../models/petsModel');
 module.exports = {
     listPets: async (req, res) => {
+        const pets = model.getAll(req.params.petId)
         res.render('pets/list', { 'pets': pets, 'title': 'Dashboard' });
     },
     editPetForm: async (req, res) => {
