@@ -1,0 +1,46 @@
+services: 
+  node:
+    build: .
+    container_name: templating-node
+    ports:
+      - "8000:8000"
+    networks:
+      - docker-service
+    depends_on: 
+      - mariadb
+
+  mariadb:
+    image: mariadb:latest
+    container_name: templating-mariadb
+    ports:
+      - "3306:3306"
+    environment: 
+      MYSQL_ROOT_PASSWORD: "password"
+    networks:
+      - docker-service
+    volumes:
+      - maria-data:/data/db   
+  phpmyadmin:
+      image: phpmyadmin/phpmyadmin:4.7
+      # image: phpmyadmin/phpmyadmin
+      container_name: templating-phpmyadmin
+      ports: 
+        - 8091:80
+      #links:
+      #  - mysql 
+      environment:
+        PMA_HOST: mariadb 
+      depends_on:
+        - mariadb          
+      networks:
+        - docker-service   
+
+
+
+networks:
+  docker-service:
+    driver: bridge
+
+volumes:
+  maria-data:
+    driver: local
