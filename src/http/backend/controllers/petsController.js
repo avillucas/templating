@@ -1,11 +1,11 @@
-const model = require('../models/petsModel');
+const petRepository = require('../../services/petRepository');
 module.exports = {
     listPets: async (req, res) => {
-        const pets = await model.getAll(req.params.petId)
+        const pets = await petRepository.getAll(req.params.petId)
         res.render('pets/list', { 'pets': pets, 'title': 'Dashboard' });
     },
     editPetForm: async (req, res) => {
-        const pet = await model.getOne(req.params.petId);
+        const pet = await petRepository.getOne(req.params.petId);
         res.render('pets/editForm', { 'pet': pet, 'title': 'Editar mascota' });
     },
     editPet: async (req, res) => {
@@ -15,15 +15,16 @@ module.exports = {
     addPetForm: async (req, res) => {
         res.render('pets/addForm.ejs', { 'title': 'Agregar Mascota' });
     },
-    addPet: async (req, res) => {
+    showPet: async (req, res) => {
+        const pet = await petRepository.getOne(req.params.petId)
+        res.render('pets/show.ejs', { 'pet': pet, 'title': 'Ver Mascota' });
+    },
+    _addPet: async (req, res) => {
         model.save(bodyParser.json(), {})
         return res.status(302).redirect('/pets');
     },
-    showPet: async (req, res) => {
-        const pet = await model.getOne(req.params.petId)
-        res.render('pets/show.ejs', { 'pet': pet, 'title': 'Ver Mascota' });
-    },
-    deletePet: async (req, res) => {
+   
+    _deletePet: async (req, res) => {
         const pet = await model.delete(req.params.petId);
         return res.status(302).redirect('/pets');
     }

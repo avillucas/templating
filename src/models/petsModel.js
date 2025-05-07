@@ -1,70 +1,47 @@
-const fs = require('fs');
-var path = require('path');
-const readJson = fs.readFileSync(path.join(__dirname, '../data/pets.json'));
+const { conn } = require('./connection');
 module.exports = {
+    _validBreeds: {cat:'Gato',dog:'Perro'},
+    _validSizes: {small:'Chico',medium:'Mediano',large:'Grande'},
+    _execute: async (dql, params) => {
+        try {
+            const [result, fields] = await connection.execute(dql, params);
+            console.log(result, fields);
+            return result;
+        } catch (error) {
+            throw error;
+        } finally {
+            conn.releaseConnection();
+        }
+    },
     getAll: async () => {
-        return JSON.parse(readJson);
+        return this._execute('SELECT `id`, `name`, `age`, `breed`, `type`  FROM `pets` GROUP BY `id`, `name`, `age`, `breed`, `type` ', []);
     },
-    getOne: async (petId) => {
-        const pets = JSON.parse(readJson);
-        if (!pets[petId]) {
-            throw new Error('The pet do not exists');
-        }
-        return pets[petId];
+    getOne: async (pet) => {
+        const rows = this._execute('SELECT  `id`, `name`, `age`, `breed`, `type`  FROM `pets` WHERE `id` = ?', [pet.id]);
+        return rows[0];
     },
-    update(petId, data) {
-        let pet = this.getOne(petId);
-        this.validate(data);
-        this.save(data,pet);
+    update(pet) {
+        const rows = this._execute('UPDATE  `pets`  SET  `name` = :petName , `age` = :petAge , `breed` = :petBreed , `type`  = :petType  FROM WHERE `id` = :petId', {
+            petName: pet.name,
+            petAge: pet.age,
+            petBreed: pet.breed,
+            petType: pet.type,
+            petId: pet.id
+        });
+        console.result()
+        return rows[0];
     },
-    save(data, pet = null) {
-        if (!pet) {
-            let pet = {};
-        }
-        if (data.nombre) {
-            pet.nombre = data.nombre;
-        }
-        if (data.edad) {
-            pet.edad = data.edad;
-        }
-        if (data.size) {
-            pet.size = data.size;
-        }
-        if (data.raza) {
-            pet.edad = data.raza;
-        }
-        if (data.tipo) {
-            pet.tipo = data.tipo;
-        }
-        //@todo save en el json  
-        return pet;
+    add(pet) {
+        const rows = this._execute('INSERT INTO `pets` (  `name`, `age`, `breed`, `type` ) VALUES (:petName ,:petAge ,:petBreed ,:petType )', {
+            petName: pet.name,
+            petAge: pet.age,
+            petBreed: pet.breed,
+            petType: pet.type,
+            petId: pet.id
+        });
     },
-    validate(data) {
-        if (!data.nombre) {
-            throw new Error('The name is not set');
-        }
-        if (!data.edad) {
-            throw new Error('The edad is not set');
-        }
-        //@todo agregar ENUMS 
-        if (!data.size) {
-            throw new Error('The size is not set');
-        }
-        //@todo agregar ENUMS 
-        if (!data.raza) {
-            throw new Error('The raza is not set');
-        }
-        //@todo agregar ENUMS 
-        if (!data.tipo) {
-            throw new Error('The tipo is not set');
-        }
-    },
-    sanitize(data) {
-        //@todo Completar
-        return data;
-    },
-    delete(petId){
-        //@todo salvar en el archivo 
-        delete pets[petId];
+    delete(pet) {
+        const result = this._execute('DELETE FROM `pets` WHERE `id` = :petId', { petId: pet.id });
+        return result;
     }
 }

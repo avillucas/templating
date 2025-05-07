@@ -7,17 +7,17 @@ const {
     editPet,
     showPet,
     addPetForm,
-    addPet,
-    deletePet
+    _addPet,
+    _deletePet
 } = require('../controllers/petsController');
 
 
 router.get('/', listPets);
 router.get('/:petId', showPet);
 router.get('/edit/:petId', editPetForm);
-router.post('/edit/:petId', editPet);
 router.get('/add', addPetForm);
-router.post('/add', addPet);
-router.delete('/delete/:petId', deletePet);
+router.put('/:petId', editPet);
+router.post('/', _addPet);
+router.delete('/:petId', _deletePet);
 
 module.exports = router;
