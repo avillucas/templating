@@ -27,7 +27,7 @@
             <td>
               <a class="btn btn-info" type="button" href="/pets/<%= index %>">Ver</a>
               <a class="btn btn-primary" type="button" href="/pets/edit/<%= index %>">Editar</a>
-              <a class="btn btn-danger rounded-pill px-3" type="button" href="/pets/delete/<%= index %>">Borrar</a>
+              <a class="btn btn-danger rounded-pill px-3" type="button" href="/pets/delete/<%= index %>?_method=DELETE">Borrar</a>
             </td>
           </tr>
           <% }); %>

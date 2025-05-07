@@ -3,7 +3,12 @@ require('dotenv').config()
 var path = require('path');
 const bodyParser = require('body-parser');
 const express = require('express');
+var methodOverride = require('method-override')
 const app = express();
+// override with the X-HTTP-Method-Override header in the request
+app.use(methodOverride('X-HTTP-Method-Override'))
+app.use(methodOverride('_method'))
+
 const petsRoutes = require(path.join( __dirname,'./src/routes/petRoutes'));
 const dashboardRoutes = require(path.join( __dirname,'./src/routes/dashboardRoutes'));
 const PORT = process.env.PORT || 3000;
