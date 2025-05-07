@@ -1,13 +1,17 @@
 services: 
-  node:
-    build: .
-    container_name: templating-node
+  server:
+    build:
+      context: .
+      target: dev
     ports:
-      - "8000:8000"
-    networks:
-      - docker-service
-    depends_on: 
-      - mariadb
+      - 3000:3000
+      - 9229:9229
+    environment:
+      NODE_ENV: production
+    depends_on:
+      - mariadb    
+    volumes:
+      - ./src:/usr/src/app/src
 
   mariadb:
     image: mariadb:latest
@@ -34,9 +38,6 @@ services:
         - mariadb          
       networks:
         - docker-service   
-
-
-
 networks:
   docker-service:
     driver: bridge

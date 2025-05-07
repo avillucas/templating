@@ -1,17 +1,24 @@
-# Specifies the image of your engine
-FROM node:12.20.0
+# syntax=docker/dockerfile:1
+ARG NODE_VERSION=22.15.0
 
-# The working directory inside your container
-WORKDIR /app
+FROM node:${NODE_VERSION}-alpine as base
+WORKDIR /usr/src/app
+EXPOSE 3000
 
-# Get the package.json first to install dependencies
-COPY package.json /app
+FROM base as dev
+RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=package-lock.json,target=package-lock.json \
+    --mount=type=cache,target=/root/.npm \
+    npm ci --include=dev
+USER node
+COPY . .
+CMD npm run dev
 
-# This will install those dependencies
-RUN npm install
-
-# Copy the rest of the app to the working directory
-COPY . /src
-
-# Run the container
-CMD ["npm", "run", "dev"]
+FROM base as prod
+RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=package-lock.json,target=package-lock.json \
+    --mount=type=cache,target=/root/.npm \
+    npm ci --omit=dev
+USER node
+COPY . .
+CMD node src/index.js
