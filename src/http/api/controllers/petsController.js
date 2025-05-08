@@ -1,4 +1,4 @@
-const petRepository = require('../../services/petRepository');
+const petRepository = require('../../../services/petService');
 module.exports = {
     listPets: async (req, res) => {
         const pets = await petRepository.getAll(req.params.petId)

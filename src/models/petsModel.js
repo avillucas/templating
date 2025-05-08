@@ -1,5 +1,5 @@
 const { conn } = require('./connection');
-module.exports = {
+const model = {
     _validBreeds: {cat:'Gato',dog:'Perro'},
     _validSizes: {small:'Chico',medium:'Mediano',large:'Grande'},
     _execute: async (dql, params) => {
@@ -44,4 +44,7 @@ module.exports = {
         const result = this._execute('DELETE FROM `pets` WHERE `id` = :petId', { petId: pet.id });
         return result;
     }
+}
+module.exports = {
+    model
 }

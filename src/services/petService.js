@@ -1,4 +1,4 @@
-const { model } = require('./models/petsModel');
+const { model } = require('../models/petsModel');
 module.exports = {
     _validate: (data) => {
         if (!data.name) {
@@ -31,6 +31,7 @@ module.exports = {
         }
     },
     getAll: async () => {
+        console.log(model);
         const rows = this.model.getAll();
         let pets = [];
         if(rows.length ){
@@ -41,18 +42,14 @@ module.exports = {
         return pets;
     },
 
-    getOne: async (pet) => {
-         const row = this.model.getAll();
-         if(row.length ){
-            return row;
-         }
-         return null;
+    getOne: async (petId) => {
+       return model.getOne({id:petId});
     },
     update(data) {
         const pet = this._validate(data);
         model.update(pet);
     },
-    add(pet) {
+    add(data) {
         const pet = this._validate(data);
         model.add(pet);
     },
