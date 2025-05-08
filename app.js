@@ -7,9 +7,11 @@ const expressLayouts = require('express-ejs-layouts')
 const app = express();
 const PORT = process.env.PORT || 3000;
 //api 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 const apiPetsRoutes = require(path.join( __dirname,'./src/http/api/routes/petRoutes'));
 app.use('/api/v1/pets',apiPetsRoutes)
-//backend 
+/*backend 
 app.set('views',path.join( __dirname,'./src/http/backend/views')); 
 app.set('view engine', 'ejs'); 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,5 +22,5 @@ const backendDashboardRoutes = require(path.join( __dirname,'./src/http/backend/
 app.use('/',backendDashboardRoutes)
 //const backendPetsRoutes      = require(path.join( __dirname,'./src/http/backend/routes/petRoutes'));
 //app.use('/pets',backendPetsRoutes)
-//
+*/
 app.listen(PORT, () => console.log(`json-bread listening on port ${PORT}!`));
