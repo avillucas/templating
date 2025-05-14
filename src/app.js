@@ -1,24 +1,30 @@
 "use strict";
+try {
 require('dotenv').config()
+const express = require('express');
 var path = require('path');
 const bodyParser = require('body-parser');
-const express = require('express');
+//const expressLayouts = require('express-ejs-layouts')  
 const app = express();
-const petsRoutes = require(path.join( __dirname,'./src/routes/petRoutes'));
-const dashboardRoutes = require(path.join( __dirname,'./src/routes/dashboardRoutes'));
 const PORT = process.env.PORT || 3000;
-
-const expressLayouts = require('express-ejs-layouts')  
-app.set('views',path.join( __dirname,'./src/views')); 
-
-app.set('view engine', 'ejs'); 
+//api 
+app.use(express.json());    
+app.use(express.urlencoded({ extended: true }));
+const apiPetsRoutes = require(path.join( __dirname,'./http/api/routes/petRoutes'));
+app.use('/api/v1/pets',apiPetsRoutes)
 app.use(bodyParser.urlencoded({ extended: false }));
+/*backend 
+app.set('views',path.join( __dirname,'./src/http/backend/views')); 
+app.set('view engine', 'ejs'); 
 app.use(express.static('public'));
-
-const pat = pathl.join( __dirname,'./src/views/layout/layout.ejs');
-app.set('layout', pathl )
+app.set('layout', path.join( __dirname,'./src/http/backend/views/layout/layout.ejs') )
 app.use(expressLayouts)
-
-app.use('/pets',petsRoutes)
-app.use('/',dashboardRoutes)
+const backendDashboardRoutes = require(path.join( __dirname,'./src/http/backend/routes/dashboardRoutes'));
+app.use('/',backendDashboardRoutes)
+//const backendPetsRoutes      = require(path.join( __dirname,'./src/http/backend/routes/petRoutes'));
+//app.use('/pets',backendPetsRoutes)
+*/
 app.listen(PORT, () => console.log(`json-bread listening on port ${PORT}!`));
+} catch( error){
+    console.error(error); 
+} 
