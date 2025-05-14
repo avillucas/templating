@@ -1,24 +1,25 @@
 # syntax=docker/dockerfile:1
 ARG NODE_VERSION=22.15.0
 
-FROM node:${NODE_VERSION}-alpine as base
+FROM node:${NODE_VERSION}-alpine AS base
 WORKDIR /usr/src/app
 EXPOSE 3000
 
-FROM base as dev
+FROM base AS dev
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
     --mount=type=cache,target=/root/.npm \
     npm ci --include=dev
 USER node
 COPY . .
-CMD npm run dev
+CMD ["npm", "run","dev"]
 
-FROM base as prod
+
+FROM base AS prod
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
     --mount=type=cache,target=/root/.npm \
     npm ci --omit=dev
 USER node
 COPY . .
-CMD node src/index.js
+CMD ["npm", "run","prod"]

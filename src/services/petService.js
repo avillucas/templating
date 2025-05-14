@@ -1,13 +1,14 @@
 const { petModel } = require('../models/petsModel');
 
 function _sanitize(data) {
-    return {
-        name: toString(data.name).trim(),
+    const pet =  {
+        name:data.name.trim(),
         age: parseInt(data.age),
-        size: toString(data.size),
-        breed: toString(data.breed).trim(),
-        type: toString(data.type)
-    }
+        size: data.size,
+        breed: data.breed.trim(),
+        type: data.type.trim()
+    };
+    return data;
 };
 function _validate(data) {
     if (!data.name) {
@@ -19,7 +20,7 @@ function _validate(data) {
     if (!data.size) {
         throw new Error('The size is not set');
     }
-    if (!petModel._validSizes.hasOwnProperty(data.type)) {
+    if (!petModel._validSizes.hasOwnProperty(data.size)) {
         throw new Error('The size is not valid one ');
     }
     if (!data.breed) {
@@ -49,9 +50,15 @@ module.exports = {
         const pet = _validate(data);
         petModel.update(pet);
     },
-    add(data) {
+    save(data) {
         const pet = _validate(data);
-        petModel.add(pet);
+        if (pet.id) {
+            petModel.update(pet);
+        } else {
+            petModel.add(pet);
+        }
+         return pet;
+        
     },
     delete(petId) {
         return petModel.delete({ id: petId });

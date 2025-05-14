@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "./src/app.js",
   "scripts": {
-    "dev": "node --watch-path=./src"
+    "dev": "set NODE_ENV=development &&  node --watch-path=./src ./src/app.js",
+    "prod": "node src/app.js"
   },
   "repository": {
     "type": "git",

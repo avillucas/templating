@@ -22,24 +22,25 @@ const model = {
         return rows[0];
     },
     update(pet) {
-        const rows = _execute('UPDATE  `pets`  SET  `name` = :petName , `age` = :petAge , `breed` = :petBreed , `type`  = :petType  FROM WHERE `id` = :petId', {
+        const rows = _execute('UPDATE  `pets`  SET  `name` = :petName , `age` = :petAge , `breed` = :petBreed , `type`  = :petType   WHERE `id` = :petId', {
             petName: pet.name,
             petAge: pet.age,
             petBreed: pet.breed,
             petType: pet.type,
             petId: pet.id
         });
-        console.result()
         return rows[0];
     },
     add(pet) {
-        const rows = _execute('INSERT INTO `pets` (  `name`, `age`, `breed`, `type` ) VALUES (:petName ,:petAge ,:petBreed ,:petType )', {
+        let newPet = {
             petName: pet.name,
             petAge: pet.age,
             petBreed: pet.breed,
             petType: pet.type,
-            petId: pet.id
-        });
+        };
+        const result = _execute('INSERT INTO `pets` (  `name`, `age`, `breed`, `type` ) VALUES (:petName ,:petAge ,:petBreed ,:petType )', newPet);
+        newPet.id = result.insertId;
+        return newPet;
     },
     delete(pet) {
         const result = _execute('DELETE FROM `pets` WHERE `id` = :petId', { petId: pet.id });
