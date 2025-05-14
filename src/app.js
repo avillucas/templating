@@ -1,15 +1,16 @@
 "use strict";
+try {
 require('dotenv').config()
 const express = require('express');
 var path = require('path');
-const bodyParser = require('body-parser');
-const expressLayouts = require('express-ejs-layouts')  
+//const bodyParser = require('body-parser');
+//const expressLayouts = require('express-ejs-layouts')  
 const app = express();
 const PORT = process.env.PORT || 3000;
 //api 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const apiPetsRoutes = require(path.join( __dirname,'./src/http/api/routes/petRoutes'));
+const apiPetsRoutes = require(path.join( __dirname,'./http/api/routes/petRoutes'));
 app.use('/api/v1/pets',apiPetsRoutes)
 /*backend 
 app.set('views',path.join( __dirname,'./src/http/backend/views')); 
@@ -24,3 +25,6 @@ app.use('/',backendDashboardRoutes)
 //app.use('/pets',backendPetsRoutes)
 */
 app.listen(PORT, () => console.log(`json-bread listening on port ${PORT}!`));
+} catch( error){
+    console.error(error);
+}

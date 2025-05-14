@@ -1,9 +1,9 @@
 {
   "name": "templating",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "./src/app.js",
   "scripts": {
-    "dev": "node --watch-path=./src app.js"
+    "dev": "node --watch-path=./src"
   },
   "repository": {
     "type": "git",
