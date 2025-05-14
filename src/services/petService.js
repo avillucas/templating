@@ -44,7 +44,8 @@ module.exports = {
     },
     getOne: async (petId) => {
         return petModel.getOne({ id: petId });
-    },_validate
+    },
+    _validate: async (data) => {
         const pet = _validate(data);
         petModel.update(pet);
     },
