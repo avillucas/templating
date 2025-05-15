@@ -14,7 +14,7 @@ const model = {
     _validBreeds: { cat: 'Cat', dog: 'Dog' },
     _validSizes: { small: 'Small', medium: 'Medium', large: 'Largo' },
     getAll: async () => {
-        const  rows = await  _execute('SELECT `id`, `name`, `age`, `breed`, `type`  FROM `pets` GROUP BY `id`, `name`, `age`, `breed`, `type` ', []);
+        const  rows = await  _execute('SELECT `id`, `name`, `age`, `breed`, `type` , `size`  FROM `pets` GROUP BY `id`, `name`, `age`, `breed`, `type` ', []);
         let pets = []; 
         rows.forEach(function (row) {
             pets.push(row);
@@ -22,16 +22,17 @@ const model = {
         return pets;
     },
     getOne: async (pet) => {
-        const rows = await  _execute('SELECT  `id`, `name`, `age`, `breed`, `type`  FROM `pets` WHERE `id` = ?', [pet.id]);
+        const rows = await  _execute('SELECT  `id`, `name`, `age`, `breed`, `type` , `size`  FROM `pets` WHERE `id` = ?', [pet.id]);
         console.log(rows, pet.id);
         return rows[0];
     },
     update(pet) {
-        const rows = _execute('UPDATE  `pets`  SET  `name` = :petName , `age` = :petAge , `breed` = :petBreed , `type`  = :petType   WHERE `id` = :petId', {
+        const rows = _execute('UPDATE  `pets`  SET  `name` = :petName , `age` = :petAge , `breed` = :petBreed , `type`  = :petType , `size` = :petSize   WHERE `id` = :petId', {
             petName: pet.name,
             petAge: pet.age,
             petBreed: pet.breed,
             petType: pet.type,
+            petSize: pet.size,
             petId: pet.id
         });
         return rows[0];
@@ -41,11 +42,12 @@ const model = {
             petName: pet.name,
             petAge: pet.age,
             petBreed: pet.breed,
-            petType: pet.type,
+            petSize: pet.type,
+            petType: pet.size,
         };
-        const result =  _execute('INSERT INTO `pets` (  `name`, `age`, `breed`, `type` ) VALUES (:petName ,:petAge ,:petBreed ,:petType )', newPet);
+        const result =  _execute('INSERT INTO `pets` (  `name`, `age`, `breed`, `type` , `size`) VALUES (:petName ,:petAge ,:petBreed ,:petType ,:petSize )', newPet);
         newPet.id = result.insertId;
-        return newPet;
+        return newPet;  
     },
     delete(pet) {
         const result = _execute('DELETE FROM `pets` WHERE `id` = :petId', { petId: pet.id });

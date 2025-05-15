@@ -1,3 +1,7 @@
+<%- contentFor('css') %>
+<style type="text/css"> 
+form  {display:inline}
+</style>
 <%- contentFor('body') %>
 <div class="row">
   <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -27,7 +31,10 @@
             <td>
               <a class="btn btn-info" type="button" href="/pets/<%= pet.id %>">Ver</a>
               <a class="btn btn-primary" type="button" href="/pets/edit/<%= pet.id %>">Editar</a>
-              <a class="btn btn-danger rounded-pill px-3" type="button" href="/pets/delete/<%= pet.id %>">Borrar</a>
+              <form action="/pets/delete/<%= pet.id %>"" method="POST">
+                <input type="hidden" name="method" value="DELETE" /> 
+                <button class="btn btn-danger rounded-pill px-3" type="submit" >Borrar</button>
+              </form>
             </td>
           </tr>
           <% }); %>

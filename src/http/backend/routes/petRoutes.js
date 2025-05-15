@@ -4,7 +4,7 @@ const router = express.Router();
 const {
     listPets,
     editPetForm,
-    editPet,
+    _editPet,
     showPet,
     addPetForm,
     _addPet,
@@ -13,11 +13,11 @@ const {
 
 
 router.get('/', listPets);
+router.get('/add', addPetForm);
 router.get('/:petId', showPet);
 router.get('/edit/:petId', editPetForm);
-router.get('/add', addPetForm);
-router.put('/:petId', editPet);
+router.put('/:petId', _editPet);
 router.post('/', _addPet);
-router.delete('/:petId', _deletePet);
+    router.delete('/:petId', _deletePet);
 
 module.exports = router;

@@ -24,9 +24,9 @@
       <div class="mb-3">
         <select class="form-select" aria-label="mediano">
           <option selected>Seleccione el tamaño</option>
-          <option value="chico"    <% if (pet.size=='Chico') {%> selected="selected"<%}%> >Chico ( 1 a 5kg )</option>
-          <option value="mediano"  <%  if (pet.size=='Mediano') {%> selected="selected"<%}%>  >Mediano ( 6 a 15kg )</option>
-          <option value="grande"  <% if (pet.size=='Grande') {%> selected="selected"<%}%>  >Grande ( 16 a 50kg )</option>
+          <option value="small"    <% if (pet.size == 'small') {%> selected="selected"<%}%> >Chico ( 1 a 5kg )</option>
+          <option value="medium"  <%  if (pet.size == 'medium') {%> selected="selected"<%}%>  >Mediano ( 6 a 15kg )</option>
+          <option value="large"  <% if (pet.size == 'large') {%> selected="selected"<%}%>  >Grande ( 16 a 50kg )</option>
         </select>
       </div>
       <div class="mb-3">
@@ -38,8 +38,8 @@
       <div class="mb-3">
         <select class="form-select" aria-label="Perro">
           <option selected>Tipo</option>
-          <option value="gato" <% if (pet.type == 'Cat') {%> selected="selected"<%}%> >Gato</option>
-          <option value="perro" <% if (pet.type =='Dog') {%> selected="selected"<%}%> >Perro</option>
+          <option value="cat" <% if (pet.type == 'cat') {%> selected="selected"<%}%> >Gato</option>
+          <option value="dog" <% if (pet.type =='dog') {%> selected="selected"<%}%> >Perro</option>
         </select>
       </div>
       <button type="submit" class="btn btn-primary">Editar</button>
