@@ -9,17 +9,15 @@ const pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
-  namedPlaceholders:true//,
+  namedPlaceholders:true,
   //rowsAsArray: true,
 });
 
 pool.getConnection((error, connection) => {
   if (error) {
-    console.log("Hubo un error de conexión", error);
-    return;
+    throw Error(error);
   }
   connection.config.namedPlaceholders = true;
-  console.log('connected as id ' + connection.threadId);
   connection.release();
 });
 

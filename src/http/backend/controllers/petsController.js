@@ -1,11 +1,15 @@
 const petRepository = require('../../../services/petService');
 module.exports = {
     listPets: async (req, res) => {
-        const pets = await petRepository.getAll(req.params.petId)
-        res.render('pets/list', { 'pets': pets, 'title': 'Dashboard' });
-    },
+        const pets = await petRepository.getAll(req.params.petId);
+console.log(pets[0]);
+
+        res.render('pets/list', { 'pets': pets, 'title': 'Pets' });
+        },
     editPetForm: async (req, res) => {
         const pet = await petRepository.getOne(req.params.petId);
+
+        console.info(pet);
         res.render('pets/editForm', { 'pet': pet, 'title': 'Editar mascota' });
     },
     editPet: async (req, res) => {

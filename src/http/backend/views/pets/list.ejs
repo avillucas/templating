@@ -21,13 +21,13 @@
           <% if (pets) { %>
           <% pets.forEach(function(pet,index){ %>
           <tr>
-            <td><%= pet.nombre %></td>
-            <td><%= pet.edad %></td>
-            <td><%= pet.tipo %></td>
+            <td><%= pet.name %></td>
+            <td><%= pet.age %></td>
+            <td><%= pet.type %></td>
             <td>
-              <a class="btn btn-info" type="button" href="/pets/<%= index %>">Ver</a>
-              <a class="btn btn-primary" type="button" href="/pets/edit/<%= index %>">Editar</a>
-              <a class="btn btn-danger rounded-pill px-3" type="button" href="/pets/delete/<%= index %>">Borrar</a>
+              <a class="btn btn-info" type="button" href="/pets/<%= pet.id %>">Ver</a>
+              <a class="btn btn-primary" type="button" href="/pets/edit/<%= pet.id %>">Editar</a>
+              <a class="btn btn-danger rounded-pill px-3" type="button" href="/pets/delete/<%= pet.id %>">Borrar</a>
             </td>
           </tr>
           <% }); %>

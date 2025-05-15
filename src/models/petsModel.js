@@ -1,8 +1,8 @@
-const { conn } = require('./connection');
+const { conn } = require('../config/connection');
 
 async function _execute(dql, params) {
     try {
-        const rows  = await conn.execute(dql, params);
+        const [rows, result]  = await conn.execute(dql, params);
         return rows;
     } catch (error) {
         throw error;
@@ -14,13 +14,16 @@ const model = {
     _validBreeds: { cat: 'Cat', dog: 'Dog' },
     _validSizes: { small: 'Small', medium: 'Medium', large: 'Largo' },
     getAll: async () => {
-        const [results, fields] = _execute('SELECT `id`, `name`, `age`, `breed`, `type`  FROM `pets` GROUP BY `id`, `name`, `age`, `breed`, `type` ', []);
-        let pets = []; rows.foreach(row => {
+        const  rows = await  _execute('SELECT `id`, `name`, `age`, `breed`, `type`  FROM `pets` GROUP BY `id`, `name`, `age`, `breed`, `type` ', []);
+        let pets = []; 
+        rows.forEach(function (row) {
             pets.push(row);
         });
+        return pets;
     },
     getOne: async (pet) => {
-        const rows = _execute('SELECT  `id`, `name`, `age`, `breed`, `type`  FROM `pets` WHERE `id` = ?', [pet.id]);
+        const rows = await  _execute('SELECT  `id`, `name`, `age`, `breed`, `type`  FROM `pets` WHERE `id` = ?', [pet.id]);
+        console.log(rows, pet.id);
         return rows[0];
     },
     update(pet) {
@@ -40,7 +43,7 @@ const model = {
             petBreed: pet.breed,
             petType: pet.type,
         };
-        const result = _execute('INSERT INTO `pets` (  `name`, `age`, `breed`, `type` ) VALUES (:petName ,:petAge ,:petBreed ,:petType )', newPet);
+        const result =  _execute('INSERT INTO `pets` (  `name`, `age`, `breed`, `type` ) VALUES (:petName ,:petAge ,:petBreed ,:petType )', newPet);
         newPet.id = result.insertId;
         return newPet;
     },
