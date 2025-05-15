@@ -9,8 +9,7 @@ const pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
-  namedPlaceholders:true,
-  //rowsAsArray: true,
+  namedPlaceholders:true
 });
 
 pool.getConnection((error, connection) => {
