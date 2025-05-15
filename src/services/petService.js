@@ -1,8 +1,8 @@
 const { petModel } = require('../models/petsModel');
 
 function _sanitize(data) {
-    const pet =  {
-        name:data.name.trim(),
+    const pet = {
+        name: data.name.trim(),
         age: parseInt(data.age),
         size: data.size,
         breed: data.breed.trim(),
@@ -34,14 +34,7 @@ function _validate(data) {
 
 module.exports = {
     getAll: async () => {
-        const rows = petModel.getAll();
-        let pets = [];
-        if (rows.length) {
-            rows.foreach(row => {
-                pets.push(row);
-            });
-        }
-        return pets;
+        return petModel.getAll(); 
     },
     getOne: async (petId) => {
         return petModel.getOne({ id: petId });
@@ -57,8 +50,8 @@ module.exports = {
         } else {
             petModel.add(pet);
         }
-         return pet;
-        
+        return pet;
+
     },
     delete(petId) {
         return petModel.delete({ id: petId });

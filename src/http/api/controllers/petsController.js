@@ -2,7 +2,7 @@ const bodyParser = require('body-parser');
 const petRepository = require('../../../services/petService');
 module.exports = {
     listPets: async (req, res) => {
-        const pets = await petRepository.getAll(req.params.petId)
+        const pets = await petRepository.getAll()
         res.json(pets);
     },
     editPet: async (req, res) => {

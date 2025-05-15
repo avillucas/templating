@@ -2,9 +2,8 @@ const { conn } = require('./connection');
 
 async function _execute(dql, params) {
     try {
-        const [result, fields] = await conn.execute(dql, params);
-        console.log(result, fields);
-        return result;
+        const rows  = await conn.execute(dql, params);
+        return rows;
     } catch (error) {
         throw error;
     } finally {
@@ -12,10 +11,13 @@ async function _execute(dql, params) {
     }
 };
 const model = {
-    _validBreeds: { cat: 'Gato', dog: 'Perro' },
-    _validSizes: { small: 'Chico', medium: 'Mediano', large: 'Grande' },
+    _validBreeds: { cat: 'Cat', dog: 'Dog' },
+    _validSizes: { small: 'Small', medium: 'Medium', large: 'Largo' },
     getAll: async () => {
-        return _execute('SELECT `id`, `name`, `age`, `breed`, `type`  FROM `pets` GROUP BY `id`, `name`, `age`, `breed`, `type` ', []);
+        const [results, fields] = _execute('SELECT `id`, `name`, `age`, `breed`, `type`  FROM `pets` GROUP BY `id`, `name`, `age`, `breed`, `type` ', []);
+        let pets = []; rows.foreach(row => {
+            pets.push(row);
+        });
     },
     getOne: async (pet) => {
         const rows = _execute('SELECT  `id`, `name`, `age`, `breed`, `type`  FROM `pets` WHERE `id` = ?', [pet.id]);
