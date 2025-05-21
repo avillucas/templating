@@ -31,8 +31,7 @@ form  {display:inline}
             <td>
               <a class="btn btn-info" type="button" href="/pets/<%= pet.id %>">Ver</a>
               <a class="btn btn-primary" type="button" href="/pets/edit/<%= pet.id %>">Editar</a>
-              <form action="/pets/delete/<%= pet.id %>"" method="POST">
-                <input type="hidden" name="method" value="DELETE" /> 
+              <form action="/pets/<%= pet.id %>?_method=DELETE" method="POST">
                 <button class="btn btn-danger rounded-pill px-3" type="submit" >Borrar</button>
               </form>
             </td>

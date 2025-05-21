@@ -27,7 +27,7 @@ module.exports = {
         return res.status(302).redirect('/pets');
     },
     _deletePet: async (req, res) => {
-        const pet = await model.delete(req.params.petId);
+        const pet = await petRepository.delete(req.params.petId);
         return res.status(302).redirect('/pets');
     }
 }

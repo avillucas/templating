@@ -42,8 +42,8 @@ const model = {
             petName: pet.name,
             petAge: pet.age,
             petBreed: pet.breed,
-            petSize: pet.type,
-            petType: pet.size,
+            petType: pet.type,
+            petSize: pet.size,
         };
         const result =  _execute('INSERT INTO `pets` (  `name`, `age`, `breed`, `type` , `size`) VALUES (:petName ,:petAge ,:petBreed ,:petType ,:petSize )', newPet);
         newPet.id = result.insertId;
