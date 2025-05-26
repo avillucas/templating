@@ -7,13 +7,13 @@ const {
     show,
     add,
     erase
-} = require('../controllers/petsController');
+} = require('../controllers/usersController');
 
 
 router.get('/', list);
-router.get('/:PetId', show);
-router.put('/:PetId', edit);
+router.get('/:userId', show);
+router.put('/:userId', edit);
 router.post('/', add);
-router.delete('/:PetId', erase);
+router.delete('/:userId', erase);
 
 module.exports = router;
