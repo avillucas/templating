@@ -1,14 +1,23 @@
 const { userModel } = require('../models/userModel');
-
+const bcrypt = require('bcrypt');
 function _sanitize(data) {
     const user = {
+        name: data.name.trim(),
         email: data.email.trim(),
-        password: data.password.trim(),
+        password: hashPassword(data.password.trim()),
         rol: data.rol.trim()
     };
     return data;
 };
+
+async function hashPassword(password) {
+    return await bcrypt.hash(password, 8);
+};
+
 function _validate(data) {
+    if (!data.name) {
+        throw new Error('The name is not set');
+    }
     if (!data.email) {
         throw new Error('The email is not set');
     }
@@ -41,7 +50,11 @@ module.exports = {
     delete(userId) {
         return userModel.delete({ id: userId });
     },
-    getByEmailPassword(email, password){
-        return  userModel.getOne({ email, password });
+    getByEmailPassword(email, password) {
+        const passwordHash = hashPassword(password);
+        return userModel.getOne({ email, passwordHash });
     },
+    register(name, password,rol){
+        
+    }
 }

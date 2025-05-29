@@ -6,8 +6,11 @@ module.exports = {
         res.json({'message' :'Los usuarios fueron encontrados','data':users});
     },
     edit: async (req, res) => {
-        let user= req.body;
-        user.id = req.params.userId;
+        let user = userRepository.getOne(req.params.userId);
+        if(!user){
+            throw Error('User does not exist');
+        }
+        user.merge(req.body);
         await userRepository.save(user)
         res.json({'message' :'Los usuarios fue agregada','data':user});
     },

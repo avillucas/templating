@@ -17,5 +17,15 @@ module.exports = {
         }
         const jwt = JWTService.auth(user.id);
         return res.send({ jwt });
+    },
+    register: async (req, res) => {
+        const { name, email, password } = req.body;
+        const user = userRepository.save({name,email,password});
+        if(!user){
+            throw new Error('The could not be created')
+        }
+        delete user.password;
+        return res.send({'message':'User Created','data':user});
     }
+    
 }

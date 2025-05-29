@@ -43,13 +43,23 @@ const model = {
             userPassword: user.password,
             userRol: user.rol ?? userModel.ROL_ADMIN
         };
-        const result =  _execute('INSERT INTO `users` ( `id`,   `email`, `password`, `rol`) VALUES (UUID_TO_BIN(UUID()), :userEmail ,:userPassword, :userRol )', newUser);
+        const result =  _execute('INSERT INTO `users` ( `id`,  `name`,   `email`, `password`, `rol`) VALUES (UUID_TO_BIN(UUID()), :userEmail ,:userPassword, :userRol )', newUser);
         newUser.id = result.insertId;
         return newUser;  
     },
     delete(user) {
         const result = _execute('DELETE FROM `users` WHERE  `id` =  BIN_TO_UUID(:userId)', { userId: user.id });
         return result;
+    },
+    merge(userData){
+        if(userData.name)
+        this.name = userData.name;
+        if(userData.email)
+        this.name = userData.name;
+        if(userData.password)
+        this.password = userData.password;
+        if(userData.rol)
+        this.rol = userData.rol;
     }
 }
 module.exports = {
