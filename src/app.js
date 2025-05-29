@@ -24,7 +24,6 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.set('layout', path.join( __dirname,'./http/backend/views/layout/layout.ejs') )
 app.use(expressLayouts)
-
 const backendPetsRoutes      = require(path.join( __dirname,'./http/backend/routes/petRoutes'));
 const backendDashboardRoutes = require(path.join( __dirname,'./http/backend/routes/dashboardRoutes'));
 app.use('/',backendDashboardRoutes)

@@ -1,35 +1,21 @@
 const userRepository = require('../../../services/userService');
-import { jwtVerify, SignJWT } from "jose";
-
+const JWTService = require('../../../services/authService');
 
 module.exports = {
-    login: async (req, res) => {
-      
-
-            const user = userRepository.find((user) => user.id === payload.id);
-            if (!user) return res.sendStatus(401);
-            delete user.password;
-            return res.send(user);
-       
-    },
     profile: async (req, res) => {
+       // const user = userRepository.find((user) => user.id === payload.id);
+        //@todo Throw exception
+        //if (!user) return res.sendStatus(401);
+        delete user.password;
+        return res.send(user);
+    },
+    login: async (req, res) => {
         const { email, password } = req.body;
-        try {
-            const { guid } = authByEmailPwd(email, password);
-            const jwtConstructor = new SignJWT({ guid });
-            const encoder = new TextEncoder();
-            const jwt = await jwtConstructor
-                .setProtectedHeader({ alg: "HS256", typ: "JWT" })
-                .setIssuedAt()
-                .setExpirationTime("1h")
-                .sign(encoder.encode(process.env.JWT_PRIVATE_KEY));
-            return res.send({ jwt });
-        } catch (err) {
-            return res.sendStatus(401);
+        const user = userRepository.getByEmailPassword(email, password);
+        if(!user){
+            throw new Error('The user does not exist')
         }
+        const jwt = JWTService.auth(user.id);
+        return res.send({ jwt });
     }
 }
-
-
-
-

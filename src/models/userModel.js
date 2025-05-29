@@ -43,7 +43,6 @@ const model = {
             userPassword: user.password,
             userRol: user.rol ?? userModel.ROL_ADMIN
         };
-        
         const result =  _execute('INSERT INTO `users` ( `id`,   `email`, `password`, `rol`) VALUES (UUID_TO_BIN(UUID()), :userEmail ,:userPassword, :userRol )', newUser);
         newUser.id = result.insertId;
         return newUser;  

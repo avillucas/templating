@@ -1,4 +1,4 @@
-function async (err, req, res, next)  {
+function ErrorMiddleware (err, req, res, next)  {
   console.error(err.stack); // Log interno
   const statusCode = err.status ?? 500;
   const title = err.title ?? "Error";

@@ -40,5 +40,8 @@ module.exports = {
     },
     delete(userId) {
         return userModel.delete({ id: userId });
-    }
+    },
+    getByEmailPassword(email, password){
+        return  userModel.getOne({ email, password });
+    },
 }
