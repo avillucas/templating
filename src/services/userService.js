@@ -1,5 +1,6 @@
-const { userModel } = require('../models/userModel');
-const bcrypt = require('bcrypt');
+const { userModel } = require('../models/userModel');   
+//import bcrypt from "bcryptjs";
+
 function _sanitize(data) {
     const user = {
         name: data.name.trim(),
@@ -53,8 +54,5 @@ module.exports = {
     getByEmailPassword(email, password) {
         const passwordHash = hashPassword(password);
         return userModel.getOne({ email, passwordHash });
-    },
-    register(name, password,rol){
-        
     }
 }

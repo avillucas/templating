@@ -13,9 +13,9 @@ async function _execute(dql, params) {
 };
 
 
-const model = {
+const userModel = {
     _adminRol : 'ADMIN',
-    _validRoles: { admin: model._adminRol },
+    _validRoles: { admin: 'ADMIN' },
     getAll: async () => {
         const  rows = await  _execute('SELECT BIN_TO_UUID(id) as  `id`, `email`, `rol`  FROM `users` GROUP BY `id`, `email`, `rol` ', []);
         let users = []; 
@@ -63,5 +63,5 @@ const model = {
     }
 }
 module.exports = {
-    userModel: model
+    userModel
 }

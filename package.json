@@ -19,7 +19,7 @@
   "homepage": "https://github.com/avillucas/templating#readme",
   "description": "",
   "dependencies": {
-    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
     "body-parser": "^2.2.0",
     "boostrap": "^2.0.0",
     "chart.js": "^4.4.9",
