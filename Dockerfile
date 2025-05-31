@@ -7,12 +7,12 @@ EXPOSE 3000
 
 FROM base AS dev
 ENV NODE_ENV=development
-RUN --mount=type=bind,source=package.json,target=package.json \
-    --mount=type=bind,source=package-lock.json,target=package-lock.json \
-    --mount=type=cache,target=/root/.npm \
-    npm ci --include=dev
+COPY ./public ./public
+COPY ./.env.develop /.env
+COPY ./package.json ./package.json
+COPY ./package-lock.json ./package-lock.json
+RUN npm ci --include=dev
 USER node
-COPY . .
 CMD ["npm", "run","dev"]
 
 
