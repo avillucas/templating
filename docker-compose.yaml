@@ -11,10 +11,18 @@ services:
     environment:
       NODE_ENV: production
     depends_on:
-      - mariadb    
+      - mariadb 
+      - mongo   
     volumes:
       - ./src:/usr/src/app/src
-
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always 
+    ports:
+      - '27017:27017'
+    networks:
+      - docker-service
   mariadb:
     image: mariadb:latest
     container_name: templating-mariadb

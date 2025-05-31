@@ -1,4 +1,4 @@
-const { conn } = require('../config/connection');
+const { conn } = require('../config/connectionMysql');
 
 async function _execute(dql, params) {
     try {
