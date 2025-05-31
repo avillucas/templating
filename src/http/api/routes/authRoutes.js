@@ -10,5 +10,5 @@ const {
 //Login con email y password
 router.post("/register",register);
 router.post("/login",login);
-router.get("/profile",JWTA, profile  );
+router.get("/profile", profile  );
 module.exports = router;

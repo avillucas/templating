@@ -2,18 +2,16 @@ const express = require('express');
 const router = express.Router();
 
 const {
-    list,
-    edit,
-    show,
-    add,
-    erase
+    listPets,
+    editPet,
+    showPet,
+    addPet,
+    deletePet
 } = require('../controllers/petsController');
-
-
-router.get('/', list);
-router.get('/:PetId', show);
-router.put('/:PetId', edit);
-router.post('/', add);
-router.delete('/:PetId', erase);
+router.get('/', listPets);
+router.get('/:PetId', showPet);
+router.put('/:PetId', editPet);
+router.post('/', addPet);
+router.delete('/:PetId', deletePet);
 
 module.exports = router;

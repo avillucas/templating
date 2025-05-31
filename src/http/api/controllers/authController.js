@@ -1,31 +1,33 @@
 const userRepository = require('../../../services/userService');
-const JWTService = require('../../../services/authService');
+const JWTService = require('../../../services/JWTService');
+
+const profile = async (req, res) => {
+    const user = userRepository.getOne(req.user.id);
+    delete user.password;
+    return res.send(user);
+};
+const login = async (req, res) => {
+    const { email, password } = req.body;
+    const user = userRepository.getByEmailPassword(email, password);
+    if (!user) {
+        throw new Error('The user does not exist')
+    }
+    const jwt = JWTService.JWTLogin(user.id);
+    return res.send({ jwt });
+};
+const register = async (req, res) => {
+    const { name, email, password } = req.body;
+    const user = userRepository.save({ name, email, password });
+    if (!user) {
+        throw new Error('The user could not be created')
+    }
+    delete user.password;
+    const jwt = JWTService.JWTLogin(user.id);
+    return res.send({ jwt });
+};
 
 module.exports = {
-    profile: async (req, res) => {
-       // const user = userRepository.find((user) => user.id === payload.id);
-        //@todo Throw exception
-        //if (!user) return res.sendStatus(401);
-        delete user.password;
-        return res.send(user);
-    },
-    login: async (req, res) => {
-        const { email, password } = req.body;
-        const user = userRepository.getByEmailPassword(email, password);
-        if(!user){
-            throw new Error('The user does not exist')
-        }
-        const jwt = JWTService.auth(user.id);
-        return res.send({ jwt });
-    },
-    register: async (req, res) => {
-        const { name, email, password } = req.body;
-        const user = userRepository.save({name,email,password});
-        if(!user){
-            throw new Error('The could not be created')
-        }
-        delete user.password;
-        return res.send({'message':'User Created','data':user});
-    }
-    
+    profile,
+    login,
+    register
 }
