@@ -6,6 +6,7 @@ WORKDIR /usr/src/app
 EXPOSE 3000
 
 FROM base AS dev
+ENV NODE_ENV=development
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
     --mount=type=cache,target=/root/.npm \
@@ -16,6 +17,7 @@ CMD ["npm", "run","dev"]
 
 
 FROM base AS prod
+ENV NODE_ENV=production
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
     --mount=type=cache,target=/root/.npm \
