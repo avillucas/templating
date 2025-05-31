@@ -15,6 +15,8 @@ services:
       - mongo   
     volumes:
       - ./src:/usr/src/app/src
+      - ./public:/usr/src/app/public
+      - ./.env:/usr/src/app/.env
   mongo:
     container_name: mongo
     image: mongo

@@ -6,13 +6,13 @@ WORKDIR /usr/src/app
 EXPOSE 3000
 
 FROM base AS dev
+RUN chown node -R  /usr/src/app
 ENV NODE_ENV=development
 COPY ./public ./public
 COPY ./.env.develop /.env
 COPY ./package.json ./package.json
 COPY ./package-lock.json ./package-lock.json
 RUN npm ci --include=dev
-USER node
 CMD ["npm", "run","dev"]
 
 
