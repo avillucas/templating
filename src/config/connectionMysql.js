@@ -9,7 +9,7 @@ const pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
-  namedPlaceholders:true
+  namedPlaceholders: true
 });
 
 pool.getConnection((error, connection) => {
@@ -21,6 +21,17 @@ pool.getConnection((error, connection) => {
 });
 
 
+const _execute = async (dql, params) => {
+  try {
+    const conn = pool.promise();
+    const [rows, result] = await conn.execute(dql, params);
+    return rows;
+  } catch (error) {
+    throw error;
+  } finally {
+    conn.releaseConnection();
+  }
+};
 module.exports = {
-  conn: pool.promise()
+  _execute
 }

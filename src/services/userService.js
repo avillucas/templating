@@ -21,9 +21,6 @@ function _validate(data) {
     if (!data.password) {
         throw new Error('The password is not set');
     }
-    if (!userModel.hasOwnProperty(data.type)) {
-        throw new Error('The type is not valid one ');
-    }
     data.rol = data.rol ?? userModel._adminRol;
     return _sanitize(data);
 };
@@ -41,6 +38,7 @@ const save = (data) => {
     } else {
         userModel.add(user);
     }
+    delete user.password;
     return user;
 }
 const erase = (userId) => {

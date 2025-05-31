@@ -12,7 +12,7 @@ const editUser = async (req, res) => {
     }
     user.merge(req.body);
     await userRepository.save(user)
-    res.json({ 'message': 'Los usuarios fue agregada', 'data': user });
+    res.json({ 'message': 'Los usuarios fue editados', 'data': user });
 };
 const showUser = async (req, res) => {
     const user = await userRepository.getOne(req.params.userId)
@@ -20,11 +20,12 @@ const showUser = async (req, res) => {
 };
 const addUser = async (req, res) => {
     const user = userRepository.save(req.body, {})
-    res.json({ 'message': 'El usuario fue agregada', 'data': user });
+    console.log(user);  
+    res.json({ 'message': 'El usuario fue agregado', 'data': user });
 };
 const deleteUser = async (req, res) => {
-    await userRepository.delete(req.params.userId);
-    res.json({ 'message': 'La  fue eliminada' });
+    await userRepository.deleteUser(req.params.userId);
+    res.json({ 'message': 'La  fue elimnado' });
 }
 module.exports = {
     listUser,
