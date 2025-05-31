@@ -1,5 +1,5 @@
 const { userModel } = require('../models/userModel');   
-//import bcrypt from "bcryptjs";
+import { bcrypt } from "bcryptjs";
 
 function _sanitize(data) {
     const user = {

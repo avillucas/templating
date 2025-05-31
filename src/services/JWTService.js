@@ -1,5 +1,6 @@
 import { jwtVerify, SignJWT } from "jose";
 
+
 module.exports = {
     auth: async function (guid) {
         const jwtConstructor = new SignJWT({ guid });
