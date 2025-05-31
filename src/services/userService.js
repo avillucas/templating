@@ -1,20 +1,14 @@
-"use strict";
-import  bcrypt  from "bcrypt";
-const  userModel = require('../models/userModel');
-
+const bcrypt = require("bcryptjs");
+const userModel = require('../models/userModel');
 
 function _sanitize(data) {
     const user = {
         name: data.name.trim(),
         email: data.email.trim(),
-        password: hashPassword(data.password.trim()),
+        password: bcrypt.hash(data.password.trim(), 8),
         rol: data.rol.trim()
     };
-    return data;
-};
-
-async function hashPassword(password) {
-    return await bcrypt.hash(password, 8);
+    return user
 };
 
 function _validate(data) {
@@ -34,27 +28,32 @@ function _validate(data) {
     return _sanitize(data);
 };
 
-module.exports = {
-    getAll: async () => {
-        return userModel.getAll();
-    },
-    getOne: async (userId) => {
-        return userModel.getOne({ id: userId });
-    },
-    save(data) {
-        const user = _validate(data);
-        if (user.id) {
-            userModel.update(user);
-        } else {
-            userModel.add(user);
-        }
-        return user;
-    },
-    delete(userId) {
-        return userModel.delete({ id: userId });
-    },
-    getByEmailPassword(email, password) {
-        const passwordHash = hashPassword(password);
-        return userModel.getOne({ email, passwordHash });
+const getAll = async () => {
+    return userModel.getAll();
+};
+const getOne = async (userId) => {
+    return userModel.getOne({ id: userId });
+};
+const save = (data) => {
+    const user = _validate(data);
+    if (user.id) {
+        userModel.update(user);
+    } else {
+        userModel.add(user);
     }
+    return user;
+}
+const erase = (userId) => {
+    return userModel.delete({ id: userId });
+};
+const getByEmailPassword = (email, password) => {
+    const passwordHash = hashPassword(password);
+    return userModel.getOne({ email, passwordHash });
+}
+module.exports = {
+    getAll,
+    getOne,
+    save,
+    erase,
+    getByEmailPassword,
 }
