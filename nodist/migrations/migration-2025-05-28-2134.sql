@@ -1,3 +1,2 @@
 ALTER TABLE `users` ADD `name` VARCHAR(90) NOT NULL AFTER `id`;
 ALTER TABLE `users` CHANGE `password` `password` VARCHAR(60) NOT NULL;
-ALTER TABLE `users` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;

@@ -19,8 +19,7 @@ const showUser = async (req, res) => {
     res.json({ 'message': 'Los usuarios fue encontrada', 'data': user });
 };
 const addUser = async (req, res) => {
-    const user = userRepository.save(req.body, {})
-    console.log(user);  
+    const user = await userRepository.save(req.body, {}); 
     res.json({ 'message': 'El usuario fue agregado', 'data': user });
 };
 const deleteUser = async (req, res) => {

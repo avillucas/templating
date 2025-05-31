@@ -1,5 +1,14 @@
-const { _execute } = require('../config/connectionMysql');
-
+const { conn } = require('../config/connectionMysql');
+async function _execute(dql, params) {
+    try {
+        const [rows, result] = await conn.execute(dql, params);
+        return rows;
+    } catch (error) {
+        throw error;
+    } finally {
+        conn.releaseConnection();
+    }
+};
 const model = {
     _validBreeds: { cat: 'Cat', dog: 'Dog' },
     _validSizes: { small: 'Small', medium: 'Medium', large: 'Largo' },

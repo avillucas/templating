@@ -1,17 +1,18 @@
 const bcrypt = require("bcryptjs");
 const userModel = require('../models/userModel');
 
-function _sanitize(data) {
+async function _sanitize(data) {
     const user = {
         name: data.name.trim(),
         email: data.email.trim(),
-        password: bcrypt.hash(data.password.trim(), 8),
+        password: await bcrypt.hash(data.password.trim(), 8),
         rol: data.rol.trim()
     };
+    console.log(user);
     return user
 };
 
-function _validate(data) {
+async function  _validate(data) {
     if (!data.name) {
         throw new Error('The name is not set');
     }
@@ -22,7 +23,7 @@ function _validate(data) {
         throw new Error('The password is not set');
     }
     data.rol = data.rol ?? userModel._adminRol;
-    return _sanitize(data);
+    return await _sanitize(data);
 };
 
 const getAll = async () => {
@@ -31,8 +32,8 @@ const getAll = async () => {
 const getOne = async (userId) => {
     return userModel.getOne({ id: userId });
 };
-const save = (data) => {
-    const user = _validate(data);
+const save = async (data) => {
+    const user = await  _validate(data);
     if (user.id) {
         userModel.update(user);
     } else {
