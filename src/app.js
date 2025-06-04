@@ -6,11 +6,11 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const ErrorMiddleware = require('./middleware/ErrorMiddleware');
 const JWTAuthMiddleware = require('./middleware/JWTAuthMiddleware');
-const {sessionAuthMiddleware } = require('./http/backend/routes/authRoutes');
+const {userState, sessionHandler, sessionAuthMiddleware}  = require('./middleware/SessionMiddleware');
 //api 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.locals.emptyLayout = false;
 const path = require("path");
 const authorizationRoutes = require('./http/api/routes/authRoutes');
 const apiPetsRoutes = require('./http/api/routes/petRoutes');
@@ -26,12 +26,15 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.set('layout', path.join(__dirname, 'http', 'backend', 'views','layout','layout.ejs') );
 app.use(expressLayouts)
-const autRoutes = require('./http/backend/routes/authRoutes');
+const authRoutes = require('./http/backend/routes/authRoutes');
 const backendPetsRoutes = require('./http/backend/routes/petRoutes');
 const backendDashboardRoutes = require('./http/backend/routes/dashboardRoutes');
+app.use(sessionHandler);
+app.use(userState);
+app.use('/', authRoutes)
 app.use('/',sessionAuthMiddleware, backendDashboardRoutes)
 app.use('/pets', sessionAuthMiddleware, backendPetsRoutes)
-app.use('/auth', autRoutes)
+
 
 //RUTAS DE ERROR
 app.use(ErrorMiddleware);

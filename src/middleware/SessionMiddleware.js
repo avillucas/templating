@@ -1,9 +1,11 @@
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 
-const sessionMiddleware = session({
+const sessionHandler = session({
   secret: process.env.SESSION_SECRET ?? 12346578,
   resave: false,
   saveUninitialized: false,
+  store: MongoStore.create({ mongoUrl: process.env.MONGO_CONNECTION ?? 'mongodb://mongo:27017/gdp' }),
   cookie: {
     maxAge: 1000 * 60 * 60 * 1,
     httpOnly: true,
@@ -12,14 +14,20 @@ const sessionMiddleware = session({
   },
 });
 const sessionAuthMiddleware = async (req, res, next) => {
-  if (req.session.user) {
-    res.locals.user = req.session.user || null;
-    return next();
+  if (req.session && req.session.user) return next();
+  if (!req.originalUrl.startsWith("/login")) {
+    res.status(302).redirect("/login");
   }
-  throw new Error("No autenticado");
+  return next();
+};
+
+const userState = async (req, res, next) => {
+  res.locals.user = req.session.user || null;
+  return next();
 };
 
 module.exports = {
-  sessionMiddleware,
+  sessionHandler,
+  userState,
   sessionAuthMiddleware,
 };
