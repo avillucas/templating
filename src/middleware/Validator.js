@@ -5,7 +5,7 @@ const validateInput = (req, res, next) => {
     if (!errors.empty()) {
         res.status(400).send({ errors: errors.array() });
     }
-    next(req, res);
+    next();
 };
 
 module.exports = validateInput;

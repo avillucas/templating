@@ -13,6 +13,10 @@ export async function registerJWT(payload) {
 }
 
 export async function verifyJWT(token) {
-  const { payload } = await jwtVerify(token, secret);
-  return payload;
+  try {
+    const { payload } = await jwtVerify(token, secret);
+    return payload;
+  } catch (err) {
+    return null;
+  }
 }

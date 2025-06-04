@@ -38,13 +38,16 @@ const getAll = async () => {
 const getOne = async (petId) => {
   return petModel.getOne({ id: petId });
 };
-const save = (data) => {
-  const pet = _validate(data);
-  if (pet.id) {
-    petModel.update(pet);
-  } else {
-    petModel.add(pet);
-  }
+
+const update = (petData) => {
+  petData = _validate(petData);
+  const pet = petModel.update(petData);
+  return pet;
+};
+
+const add = (petData) => {
+  petData = _validate(petData);
+  const pet = petModel.add(petData);
   return pet;
 };
 const deletePet = (petId) => {
@@ -54,6 +57,7 @@ const deletePet = (petId) => {
 module.exports = {
   getAll,
   getOne,
-  save,
+  update,
+  add,
   deletePet,
 };

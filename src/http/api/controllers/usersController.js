@@ -11,7 +11,7 @@ const editUser = async (req, res) => {
         throw Error('User does not exist');
     }
     user.merge(req.body);
-    await userRepository.save(user)
+    await userRepository.update(user)
     res.json({ 'message': 'Los usuarios fue editados', 'data': user });
 };
 const showUser = async (req, res) => {
@@ -19,7 +19,7 @@ const showUser = async (req, res) => {
     res.json({ 'message': 'Los usuarios fue encontrada', 'data': user });
 };
 const addUser = async (req, res) => {
-    const user = await userRepository.save(req.body, {}); 
+    const user = await userRepository.add(req.body, {}); 
     res.json({ 'message': 'El usuario fue agregado', 'data': user });
 };
 const deleteUser = async (req, res) => {

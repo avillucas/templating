@@ -2,13 +2,12 @@ const petRepository = require('../../../services/petService');
 
 const listPets = async (req, res) => {
     const pets = await petRepository.getAll()
-    res.json(pets);
     res.json({ 'message': 'La mascotas fueron encontradas', 'data': pets });
 };
 const editPet = async (req, res) => {
     let pet = req.body;
     pet.id = req.params.petId;
-    await petRepository.save(pet)
+    await petRepository.update(pet)
     res.json({ 'message': 'La mascota fue agregada', 'data': pet });
 };
 const showPet = async (req, res) => {
@@ -16,7 +15,7 @@ const showPet = async (req, res) => {
     res.json({ 'message': 'La mascota fue encontrada', 'data': pet });
 };
 const addPet = async (req, res) => {
-    const pet = petRepository.save(req.body, {})
+    const pet = petRepository.add(req.body, {})
     res.json({ 'message': 'La mascota fue agregada', 'data': pet });
 };
 const deletePet = async (req, res) => {

@@ -35,18 +35,19 @@ const getAll = async () => {
 const getOne = async (userId) => {
   return userModel.getOne({ id: userId });
 };
-const save = async (data) => {
 
-  console.log(data);
-  const userData = await _validate(data);
-  console.log(userData);
-  let user = userData.id ? userModel.update(userData) : userModel.add(userData);
-  delete user.password;
-
-  console.log('user:',user);
-  
+const update = (userData) => {
+  userData = _validate(userData);
+  const user = petModel.update(userData);
   return user;
 };
+
+const add = (userData) => {
+  userData = _validate(userData);
+  const user = petModel.add(userData);
+  return user;
+};
+
 const erase = (userId) => {
   return userModel.delete({ id: userId });
 };
@@ -62,7 +63,8 @@ const getByEmailPassword = async (email, password) => {
 module.exports = {
   getAll,
   getOne,
-  save,
+  add,
+  update,
   erase,
   getByEmailPassword,
 };

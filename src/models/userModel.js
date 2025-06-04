@@ -2,9 +2,9 @@ const { conn } = require("../config/connectionMysql");
 
 async function _execute(dql, params) {
   try {
-    const [result, rows] = await conn.query(dql, params);
-    if (result.insertId) {
-      params.id = result.insertId;
+    const [rows, result] = await conn.query(dql, params);
+    if (rows.insertId) {
+      params.id = rows.insertId;
       return params;
     }
     return rows;
@@ -60,7 +60,6 @@ const add = async (user) => {
       userRol: user.rol ?? userModel.ROL_ADMIN,
     }
   );
-  console.log(newUser);
   return newUser;
 };
 const erase = (user) => {
