@@ -14,7 +14,7 @@ const sessionRegister = async (req) => {
   if (password !== confirmPassword) {
     throw new Error("Las contraseñas ingresadas deben ser iguales");
   }
-  let user = await userModel.getByEmail(email);
+  let user = await userModel.getByEmail(email.email);
   if (!user) {
     throw new Error("Ya existe ese email");
   }
@@ -25,8 +25,7 @@ const sessionRegister = async (req) => {
 
 const sessionLogin = async (req, res) => {
   const { email, password } = req.body;
-console.log(email,password);
-  let user = await userModel.getByEmail({ email });
+  let user = await userModel.getByEmail( email );
   if (!user) {
     throw new Error("Credenciales inválidas a");
   }
