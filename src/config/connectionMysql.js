@@ -20,6 +20,7 @@ pool.getConnection((error, connection) => {
   connection.release();
 });
 
+
 module.exports = {
   conn: pool.promise()
 }
