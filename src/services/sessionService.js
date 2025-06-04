@@ -38,7 +38,7 @@ const sessionLogin = async (req, res) => {
     if (err) {
       throw new Error("No se pudo iniciar sesión");
     }
-    req.session.user = userResponse;
+    req.session.user = user;
     return res.redirect("/");
   });
 };

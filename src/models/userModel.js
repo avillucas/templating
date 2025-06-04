@@ -28,7 +28,6 @@ const getByEmail = async (email) => {
     'SELECT  `id`,  `name`, `email`, `rol`,  `password`  FROM `users` WHERE  `email` LIKE  ?',
     [email]
   );
-  console.log(email, 'rows',rows, 'fields', fields);
   return rows[0] || null;
 };
 const getOne = async (user) => {

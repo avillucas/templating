@@ -30,7 +30,6 @@ const authRoutes = require('./http/backend/routes/authRoutes');
 const backendPetsRoutes = require('./http/backend/routes/petRoutes');
 const backendDashboardRoutes = require('./http/backend/routes/dashboardRoutes');
 app.use(sessionHandler);
-app.use(userState);
 app.use('/', authRoutes)
 app.use('/',sessionAuthMiddleware, backendDashboardRoutes)
 app.use('/pets', sessionAuthMiddleware, backendPetsRoutes)
