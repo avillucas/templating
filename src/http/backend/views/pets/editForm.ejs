@@ -9,7 +9,7 @@
         </a>
       </div>
     </div>
-    <form action="/pets/<%= pet.id %>" method="POST" >
+    <form action="/pets/<%= pet.id %>?_method=PUT" method="POST" >
       <input type="hidden" name="id" value="<%= pet.id %>" />
       <div class="mb-3">
         <label for="petName" class="form-label">Nombre</label>

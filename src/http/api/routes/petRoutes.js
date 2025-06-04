@@ -8,11 +8,9 @@ const {
     addPet,
     deletePet
 } = require('../controllers/petsController');
-
-
 router.get('/', listPets);
 router.get('/:petId', showPet);
-router.put('/:petId', editPet);
+router.post('/:petId', editPet);
 router.post('/', addPet);
 router.delete('/:petId', deletePet);
 
