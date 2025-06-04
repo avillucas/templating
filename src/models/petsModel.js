@@ -22,9 +22,6 @@ const model = {
       "SELECT `id`, `name`, `age`, `breed`, `type` , `size`  FROM `pets` GROUP BY `id`, `name`, `age`, `breed`, `type` ",
       []
     );
-
-    console.log("rows", rows);
-
     let pets = [];
     rows.forEach(function (row) {
       pets.push(row);
@@ -38,19 +35,19 @@ const model = {
     );
     return rows[0];
   },
-  update(pet) {
-    const rows = _execute(
+  update: async (petData) => {
+    const result = await _execute(
       "UPDATE  `pets`  SET  `name` = :petName , `age` = :petAge , `breed` = :petBreed , `type`  = :petType , `size` = :petSize   WHERE `id` = :petId",
       {
-        petName: pet.name,
-        petAge: pet.age,
-        petBreed: pet.breed,
-        petType: pet.type,
-        petSize: pet.size,
-        petId: pet.id,
+        petName: petData.name,
+        petAge: petData.age,
+        petBreed: petData.breed,
+        petType: petData.type,
+        petSize: petData.size,
+        petId: petData.id,
       }
     );
-    return rows[0];
+    return result && result.affectedRows;
   },
   add(pet) {
     let newPet = {
@@ -67,11 +64,11 @@ const model = {
     newPet.id = result.insertId;
     return newPet;
   },
-  delete(pet) {
-    const result = _execute("DELETE FROM `pets` WHERE `id` = :petId", {
-      petId: pet.id,
+  async delete(id) {
+    const result = await _execute("DELETE FROM `pets` WHERE `id` = :petId", {
+      petId: id,
     });
-    return result;
+    return result && result.affectedRows;
   },
 };
 module.exports = {

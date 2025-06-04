@@ -37,18 +37,18 @@ const getOne = async (user) => {
   );
   return rows[0] || null;
 };
-const update = (user) => {
-  const rows = _execute(
+const update = async (userData) => {
+  const rows = await _execute(
     "UPDATE  `users`  SET  `email` = :userEmail , `password` = :userPassword , `name` = :userName ,  `rol` = :userRol  WHERE `id` = :userId",
     {
-      userEmail: user.email,
-      userName: user.name,
-      userPassword: user.password,
-      userRol: user.rol,
-      userId: user.id,
+      userEmail: userData.email,
+      userName: userData.name,
+      userPassword: userData.password,
+      userRol: userData.rol,
+      userId: userData.id,
     }
   );
-  return rows[0];
+  return result && result.affectedRows;
 };
 const add = async (user) => {
   const newUser = await _execute(
@@ -62,11 +62,11 @@ const add = async (user) => {
   );
   return newUser;
 };
-const erase = (user) => {
-  const result =  _execute("DELETE FROM `users` WHERE  `id` =  :userId", {
-    userId: user.id,
+const deleteUser = async (id) => {
+  const result = await _execute("DELETE FROM `users` WHERE  `id` =  :userId", {
+    userId: id,
   });
-  return result;
+  return result && result.affectedRows;
 };
 const merge = (userData) => {
   if (userData.name) this.name = userData.name;
@@ -83,6 +83,6 @@ module.exports = {
   getByEmail,
   update,
   add,
-  erase,
+  deleteUser,
   merge,
 };

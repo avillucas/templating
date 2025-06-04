@@ -48,8 +48,8 @@ const add = (userData) => {
   return user;
 };
 
-const erase = (userId) => {
-  return userModel.delete({ id: userId });
+const deleteUser = (userId) => {
+  return userModel.deleteUser({ userId });
 };
 const getByEmailPassword = async (email, password) => {
   const user = await userModel.getByEmail(email);
@@ -65,6 +65,6 @@ module.exports = {
   getOne,
   add,
   update,
-  erase,
+  deleteUser,
   getByEmailPassword,
 };

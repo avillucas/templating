@@ -39,19 +39,20 @@ const getOne = async (petId) => {
   return petModel.getOne({ id: petId });
 };
 
-const update = (petData) => {
+const update = async (petData) => {
   petData = _validate(petData);
-  const pet = petModel.update(petData);
+  const pet = await petModel.update(petData);
+  console.log(pet);
   return pet;
 };
 
-const add = (petData) => {
+const add = async (petData) => {
   petData = _validate(petData);
-  const pet = petModel.add(petData);
+  const pet = await petModel.add(petData);
   return pet;
 };
-const deletePet = (petId) => {
-  return petModel.delete({ id: petId });
+const deletePet = async (id) => {
+  return await petModel.delete({ id });
 };
 
 module.exports = {
