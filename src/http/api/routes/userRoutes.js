@@ -12,7 +12,7 @@ const {
 
 router.get('/', listUser);
 router.get('/:userId', showUser);
-router.put('/:userId', editUser);
+router.post('/:userId', editUser);
 router.post('/', addUser);
 router.delete('/:userId', deleteUser);
 

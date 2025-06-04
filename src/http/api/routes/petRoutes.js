@@ -9,9 +9,9 @@ const {
     deletePet
 } = require('../controllers/petsController');
 router.get('/', listPets);
-router.get('/:PetId', showPet);
-router.put('/:PetId', editPet);
+router.get('/:petId', showPet);
+router.post('/:petId', editPet);
 router.post('/', addPet);
-router.delete('/:PetId', deletePet);
+router.delete('/:petId', deletePet);
 
 module.exports = router;
