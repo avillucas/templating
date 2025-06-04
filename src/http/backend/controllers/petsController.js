@@ -16,13 +16,13 @@ module.exports = {
         res.render('pets/show.ejs', { 'pet': pet, 'title': 'Ver Mascota' });
     },
     _addPet: async (req, res) => {
-        await petRepository.save(req.body)
+        await petRepository.add(req.body)
         return res.status(302).redirect('/pets');
     },
     _editPet: async (req, res) => {
         let pet = req.body;
         pet.id = req.params.petId;
-        await petRepository.save(pet)
+        await petRepository.update(pet)
         return res.status(302).redirect('/pets');
     },
     _deletePet: async (req, res) => {

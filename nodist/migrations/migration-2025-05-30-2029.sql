@@ -1,3 +1,3 @@
-
+use gdp;
 ALTER TABLE `users` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `users` ADD UNIQUE(`email`);

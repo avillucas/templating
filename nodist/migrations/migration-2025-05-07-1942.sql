@@ -17,7 +17,8 @@ SET time_zone = "+00:00";
 --
 
 -- --------------------------------------------------------
-
+CREATE DATABASE gdp ;
+use gdp;
 --
 -- Estructura de tabla para la tabla `pets`
 --

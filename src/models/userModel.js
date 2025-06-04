@@ -25,7 +25,7 @@ const getAll = async () => {
 };
 const getByEmail = async (email) => {
   const [rows, fields] = await conn.query(
-    "SELECT  `id`,  `name`, `email`, `rol`,  `password`  FROM `users` WHERE  `email` =  ?",
+    'SELECT  `id`,  `name`, `email`, `rol`,  `password`  FROM `users` WHERE  `email` LIKE  ?',
     [email]
   );
   return rows[0] || null;
