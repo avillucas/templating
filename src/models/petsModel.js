@@ -22,7 +22,6 @@ const model = {
     },
     getOne: async (pet) => {
         const rows = await  _execute('SELECT  `id`, `name`, `age`, `breed`, `type` , `size`  FROM `pets` WHERE `id` = ?', [pet.id]);
-        console.log(rows, pet.id);
         return rows[0];
     },
     update(pet) {

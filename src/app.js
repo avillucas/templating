@@ -10,6 +10,7 @@ const JWTAuthMiddleware = require('./middleware/JWTAuthMiddleware');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const path = require("path");
 const authorizationRoutes = require('./http/api/routes/authRoutes');
 const apiPetsRoutes = require('./http/api/routes/petRoutes');
 const apiUsersRoutes = require('./http/api/routes/userRoutes');
@@ -19,10 +20,10 @@ app.use('/api/v1/auth', authorizationRoutes)
 //backend *
 const methodOverride = require('method-override')
 app.use(methodOverride('_method'))
-app.set('views', './http/backend/views');
+app.set('views', path.join(__dirname, 'http', 'backend', 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
-app.set('layout', './http/backend/views/layout/layout.ejs');
+app.set('layout', path.join(__dirname, 'http', 'backend', 'views','layout','layout.ejs') );
 app.use(expressLayouts)
 const backendPetsRoutes = require('./http/backend/routes/petRoutes');
 const backendDashboardRoutes = require('./http/backend/routes/dashboardRoutes');

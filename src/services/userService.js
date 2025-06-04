@@ -1,58 +1,68 @@
+const userModel = require("../models/userModel");
+
 const bcrypt = require("bcryptjs");
-const userModel = require('../models/userModel');
-
 async function _sanitize(data) {
-    const user = {
-        name: data.name.trim(),
-        email: data.email.trim(),
-        password: await bcrypt.hash(data.password.trim(), 8),
-        rol: data.rol.trim()
-    };
-    console.log(user);
-    return user
-};
+  const user = {
+    name: data.name.trim(),
+    email: data.email.trim(),
+    password: await hashPassword(data.password.trim()),
+    rol: data.rol.trim(),
+  };
+  return user;
+}
 
-async function  _validate(data) {
-    if (!data.name) {
-        throw new Error('The name is not set');
-    }
-    if (!data.email) {
-        throw new Error('The email is not set');
-    }
-    if (!data.password) {
-        throw new Error('The password is not set');
-    }
-    data.rol = data.rol ?? userModel._adminRol;
-    return await _sanitize(data);
-};
+async function hashPassword(password) {
+  return await bcrypt.hash(password, 10);
+}
+
+async function _validate(data) {
+  if (!data.name) {
+    throw new Error("The name is not set");
+  }
+  if (!data.email) {
+    throw new Error("The email is not set");
+  }
+  if (!data.password) {
+    throw new Error("The password is not set");
+  }
+  data.rol = data.rol ?? userModel._adminRol;
+  return await _sanitize(data);
+}
 
 const getAll = async () => {
-    return userModel.getAll();
+  return userModel.getAll();
 };
 const getOne = async (userId) => {
-    return userModel.getOne({ id: userId });
+  return userModel.getOne({ id: userId });
 };
 const save = async (data) => {
-    const user = await  _validate(data);
-    if (user.id) {
-        userModel.update(user);
-    } else {
-        userModel.add(user);
-    }
-    delete user.password;
-    return user;
-}
-const erase = (userId) => {
-    return userModel.delete({ id: userId });
+
+  console.log(data);
+  const userData = await _validate(data);
+  console.log(userData);
+  let user = userData.id ? userModel.update(userData) : userModel.add(userData);
+  delete user.password;
+
+  console.log('user:',user);
+  
+  return user;
 };
-const getByEmailPassword = (email, password) => {
-    const passwordHash = hashPassword(password);
-    return userModel.getOne({ email, passwordHash });
-}
+const erase = (userId) => {
+  return userModel.delete({ id: userId });
+};
+const getByEmailPassword = async (email, password) => {
+  const user = await userModel.getByEmail(email);
+  if (user) {
+    const valid = await bcrypt.compare(password, user.password);
+    if (valid) {
+      return user;
+    }
+  }
+};
 module.exports = {
-    getAll,
-    getOne,
-    save,
-    erase,
-    getByEmailPassword,
-}
+  getAll,
+  getOne,
+  save,
+  erase,
+  getByEmailPassword,
+};

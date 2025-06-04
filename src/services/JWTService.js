@@ -1,22 +1,19 @@
 const JWTLogin = async (user) => {
   const { registerJWT } = await import("../config/jwt.mjs");
-  return await registerJWT({
-    id: user._id.toString(),
+  const jwt = await registerJWT({
+    id: user.id,
     email: user.email,
-    role: user.role,
+    role: user.rol,
   });
+  return jwt;
 };
-const JWTVerify = async (authorizationHeader) => {
+const JWTVerify = async (token) => {
   const { verifyJWT } = await import("../config/jwt.mjs");
-  return await verifyJWT({
-    id: user._id.toString(),
-    email: user.email,
-    role: user.role,
-  });
+  const jwt = await verifyJWT(token);
+  return jwt;
 };
 
 module.exports = {
   JWTVerify,
-  JWTLogin
-}
-
+  JWTLogin,
+};

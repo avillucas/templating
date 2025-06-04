@@ -16,7 +16,6 @@ module.exports = {
         res.render('pets/show.ejs', { 'pet': pet, 'title': 'Ver Mascota' });
     },
     _addPet: async (req, res) => {
-        console.log(req);
         await petRepository.save(req.body)
         return res.status(302).redirect('/pets');
     },
