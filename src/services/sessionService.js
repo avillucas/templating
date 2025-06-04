@@ -25,14 +25,14 @@ const sessionRegister = async (req) => {
 
 const sessionLogin = async (req, res) => {
   const { email, password } = req.body;
-
+console.log(email,password);
   let user = await userModel.getByEmail({ email });
   if (!user) {
-    throw new Error("Credenciales inválidas");
+    throw new Error("Credenciales inválidas a");
   }
   const valid = await bcrypt.compare(password, user.password);
   if (!valid) {
-    throw new Error("Credenciales inválidas");
+    throw new Error("Credenciales inválidas b");
   }
   delete user.password;
   req.session.save((err) => {

@@ -18,9 +18,8 @@ module.exports = {
   login: async (req, res) => {
     try {
       await sessionLogin(req, res);
-      sessionService(req, res);
     } catch (error) {
-     res.render("auth/login.ejs", { title: "Login", emptyLayout: true, message: "Acceso denegado" });
+     res.render("auth/login.ejs", { title: "Login", emptyLayout: true, message: error });
     }
   },
   register: async (req, res) => {
