@@ -14,7 +14,7 @@ const path = require("path");
 const authorizationRoutes = require('./http/api/routes/authRoutes');
 const apiPetsRoutes = require('./http/api/routes/petRoutes');
 const apiUsersRoutes = require('./http/api/routes/userRoutes');
-app.use('/api/v1/users', apiUsersRoutes)
+app.use('/api/v1/users', JWTAuthMiddleware, apiUsersRoutes)
 app.use('/api/v1/pets', JWTAuthMiddleware, apiPetsRoutes)
 app.use('/api/v1/auth', authorizationRoutes)
 //backend *
