@@ -1,6 +1,6 @@
-const userModel = require("../models/userModel");
-
 const bcrypt = require("bcryptjs");
+const { User } = require("../models/userModel");
+
 async function _sanitize(data) {
   const user = {
     name: data.name.trim(),
@@ -30,29 +30,34 @@ async function _validate(data) {
 }
 
 const getAll = async () => {
-  return userModel.getAll();
+    return await User.findAll({ raw: true });
 };
 const getOne = async (userId) => {
-  return userModel.getOne({ id: userId });
+  return await User.findOne({ where: {userId }, raw: true });
 };
 
-const update = (userData) => {
+
+const add = async  (userData) => {
   userData = _validate(userData);
-  const user = petModel.update(userData);
+  const user = await User.create(userData);
   return user;
 };
 
-const add = (userData) => {
+const update = async (userData) => {
   userData = _validate(userData);
-  const user = petModel.add(userData);
+  const user = await User.findByPk(userData.id);
+  await user.update(userData );
   return user;
 };
 
-const deleteUser = (userId) => {
-  return userModel.deleteUser({ userId });
+const deleteUser = async (userId) => {
+  const user = await User.findByPk(userData.id);
+  user.destroy();
+
 };
+
 const getByEmailPassword = async (email, password) => {
-  const user = await userModel.getByEmail(email);
+  const user =  await User.findOne({ where: {email }, raw: true });
   if (user) {
     const valid = await bcrypt.compare(password, user.password);
     if (valid) {
