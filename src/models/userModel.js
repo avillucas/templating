@@ -13,7 +13,7 @@ const merge = (userData) => {
 const User = sequelize.define(
   "User",
   {
-    idUser: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,

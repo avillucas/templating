@@ -1,5 +1,5 @@
 const bcrypt = require("bcryptjs");
-const userModel = require("../models/userModel");
+const userService = require("../services/userService");
 
 const sessionRegister = async (req) => {
   const { email, password, confirmPassword, name } = req.body;
@@ -14,18 +14,18 @@ const sessionRegister = async (req) => {
   if (password !== confirmPassword) {
     throw new Error("Las contraseñas ingresadas deben ser iguales");
   }
-  let user = await userModel.getByEmail(email.email);
+  let user = await userService.getByEmail(email.email);
   if (!user) {
     throw new Error("Ya existe ese email");
   }
-  const newUser = await userModel.add({ email, password, name });
+  const newUser = await userService.add({ email, password, name });
   delete newUser.password;
   return newUser;
 };
 
 const sessionLogin = async (req, res) => {
   const { email, password } = req.body;
-  let user = await userModel.getByEmail( email );
+  let user = await userService.getByEmail( email );
   if (!user) {
     throw new Error("Credenciales inválidas a");
   }

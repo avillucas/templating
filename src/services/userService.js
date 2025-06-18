@@ -30,14 +30,13 @@ async function _validate(data) {
 }
 
 const getAll = async () => {
-    return await User.findAll({ raw: true });
+  return await User.findAll({ raw: true });
 };
 const getOne = async (userId) => {
-  return await User.findOne({ where: {userId }, raw: true });
+  return await User.findOne({ where: { id:userId }, raw: true });
 };
 
-
-const add = async  (userData) => {
+const add = async (userData) => {
   userData = _validate(userData);
   const user = await User.create(userData);
   return user;
@@ -46,18 +45,17 @@ const add = async  (userData) => {
 const update = async (userData) => {
   userData = _validate(userData);
   const user = await User.findByPk(userData.id);
-  await user.update(userData );
+  await user.update(userData);
   return user;
 };
 
 const deleteUser = async (userId) => {
-  const user = await User.findByPk(userData.id);
+  const user = await User.findByPk(userId);
   user.destroy();
-
 };
 
 const getByEmailPassword = async (email, password) => {
-  const user =  await User.findOne({ where: {email }, raw: true });
+  const user = await User.findOne({ where: { email }, raw: true });
   if (user) {
     const valid = await bcrypt.compare(password, user.password);
     if (valid) {
@@ -65,11 +63,20 @@ const getByEmailPassword = async (email, password) => {
     }
   }
 };
+
+const getByEmail = async (email) => {
+  const user = await User.findOne({ where: { email }, raw: true });
+  if (user) {
+    return user;
+  }
+};
+
 module.exports = {
   getAll,
   getOne,
   add,
   update,
   deleteUser,
+  getByEmail,
   getByEmailPassword,
 };

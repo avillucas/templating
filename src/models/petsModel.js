@@ -7,7 +7,7 @@ const  _validSizes  = { small: "Small", medium: "Medium", large: "Largo" };
 const Pet = sequelize.define(
   "Pet",
   {
-    idPet: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
