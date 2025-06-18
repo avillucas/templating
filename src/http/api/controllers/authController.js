@@ -1,5 +1,6 @@
 const {
-  save,
+  add,
+  update,
   getByEmailPassword,
   getOne,
 } = require("../../../services/userService");
@@ -21,7 +22,7 @@ const login = async (req, res) => {
 };
 const register = async (req, res) => {
   const { name, email, password } = req.body;
-  const user = await save({ name, email, password });
+  const user = await add({ name, email, password });
   if (!user) {
     throw new Error("The user could not be created");
   }
