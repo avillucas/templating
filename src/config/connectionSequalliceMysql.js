@@ -20,7 +20,7 @@ const sequelize = new Sequelize(
 );
 
 sequelize.authenticate()
-  .then(() => console.log(`Connection working: ${process.env.DB_HOST}`))
-  .catch(err => console.error('Connection error:', err));
+  .then(() => console.log(`Sequelize Connection working: ${ process.env.DB_HOST ?? 'templating-mariadb'}`))
+  .catch(err => console.error('Sequelize Connection error:', err));
 
 module.exports = sequelize;

@@ -27,11 +27,11 @@ const sessionLogin = async (req, res) => {
   const { email, password } = req.body;
   let user = await userService.getByEmail( email );
   if (!user) {
-    throw new Error("Credenciales inválidas a");
+    throw new Error("Email invalido");
   }
   const valid = await bcrypt.compare(password, user.password);
   if (!valid) {
-    throw new Error("Credenciales inválidas b");
+    throw new Error("Credenciales inválidas");
   }
   delete user.password;
   req.session.save((err) => {
