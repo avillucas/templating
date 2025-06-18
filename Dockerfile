@@ -9,7 +9,7 @@ FROM base AS dev
 RUN chown node -R  /usr/src/app
 ENV NODE_ENV=development
 COPY ./public ./public
-#RUN   .env.develop .env
+#COPY  ./.env.develop .env
 COPY ./package.json ./package.json
 COPY ./package-lock.json ./package-lock.json
 RUN npm ci --include=dev
