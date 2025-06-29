@@ -17,6 +17,9 @@ module.exports = {
   },
   login: async (req, res) => {
     try {
+      if (!req.session) {
+        throw new Error("No se pudo iniciar sesión");
+      }
       await sessionLogin(req, res);
     } catch (error) {
      res.render("auth/login.ejs", { title: "Login", emptyLayout: true, message: error });

@@ -34,6 +34,7 @@ const sessionLogin = async (req, res) => {
     throw new Error("Credenciales inválidas");
   }
   delete user.password;
+
   req.session.save((err) => {
     if (err) {
       throw new Error("No se pudo iniciar sesión");
@@ -47,11 +48,11 @@ const sessionLogout = (req, res) => {
   if (!req.session) return;
 
   req.session.destroy((err) => {
-    if (err) {
+    if (err !== null) {
       throw new Error("No se pudo cerrar sesión");
     }
     res.clearCookie("connect.sid");
-    return res.redirect("auth/login");
+    return res.redirect("/login");
   });
 };
 

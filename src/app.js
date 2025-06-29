@@ -9,10 +9,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const ErrorMiddleware = require('./middleware/ErrorMiddleware');
 const JWTAuthMiddleware = require('./middleware/JWTAuthMiddleware');
-const {userState, sessionHandler, sessionAuthMiddleware}  = require('./middleware/SessionMiddleware');
+const {userState,  sessionMiddleware, auth}  = require('./middleware/SessionMiddleware');
 //api 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(sessionMiddleware);
+app.use(userState);
 app.locals.emptyLayout = false;
 const path = require("path");
 const authorizationRoutes = require('./http/api/routes/authRoutes');
@@ -32,14 +34,14 @@ app.use(expressLayouts)
 const authRoutes = require('./http/backend/routes/authRoutes');
 const backendPetsRoutes = require('./http/backend/routes/petRoutes');
 const backendDashboardRoutes = require('./http/backend/routes/dashboardRoutes');
-app.use(sessionHandler);
-app.use('/', authRoutes)
-app.use('/',sessionAuthMiddleware, backendDashboardRoutes)
-app.use('/pets', sessionAuthMiddleware, backendPetsRoutes)
 
+
+app.use('/', auth, authRoutes)
+app.use('/',auth,  backendDashboardRoutes)
+app.use('/pets',auth,  backendPetsRoutes)
 
 
 //RUTAS DE ERROR
-app.use(ErrorMiddleware);
+
 
 app.listen(PORT, () => console.log(`json-bread listening on port ${PORT}!`));

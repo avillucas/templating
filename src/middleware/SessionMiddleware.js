@@ -1,7 +1,7 @@
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 
-const sessionHandler = session({
+const sessionMiddleware = session({
   secret: process.env.SESSION_SECRET ?? 'asdasd132132asdasd',
   resave: false,
   saveUninitialized: false,
@@ -13,17 +13,24 @@ const sessionHandler = session({
     path: "/",
   },
 });
-const sessionAuthMiddleware = async (req, res, next) => {
-  if (req.session.user) return next();
+
+
+const auth = async (req, res, next) => {
+  if (req.session && req.session.user) return next();
 
   if (!req.originalUrl.startsWith("/login")) {
     res.status(302).redirect("/login");
+    return;
   }
   return next();
 };
 
-
+function userState(req, res, next) {
+  //res.locals.user = req.session.user || null;
+  next();
+}
 module.exports = {
-  sessionHandler,
-  sessionAuthMiddleware,
+  auth,
+  sessionMiddleware,
+  userState,
 };
