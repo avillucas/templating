@@ -28,11 +28,8 @@ const addPet = async (req, res) => {
   res.json({ message: "La mascota fue agregada", data: pet });
 };
 const deletePet = async (req, res) => {
-  const deleted = await petRepository.deletePet(req.params.petId);
-  if (!deleted) {
-    throw Error("The pet could not be deleted");
-  }
-  res.json({ message: "La  fue eliminada" });
+  await petRepository.deletePet(req.params.petId);
+  res.json({ message: "La mascota fue eliminada" });
 };
 
 module.exports = {
