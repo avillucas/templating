@@ -1,8 +1,11 @@
 "use strict";
 require('dotenv').config()
 const express = require('express');
+const cors = require('cors');
 const expressLayouts = require('express-ejs-layouts')
 const app = express();
+ // Use CORS middleware
+ app.use(cors());
 const PORT = process.env.PORT || 3000;
 const ErrorMiddleware = require('./middleware/ErrorMiddleware');
 const JWTAuthMiddleware = require('./middleware/JWTAuthMiddleware');
@@ -33,6 +36,7 @@ app.use(sessionHandler);
 app.use('/', authRoutes)
 app.use('/',sessionAuthMiddleware, backendDashboardRoutes)
 app.use('/pets', sessionAuthMiddleware, backendPetsRoutes)
+
 
 
 //RUTAS DE ERROR
