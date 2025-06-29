@@ -17,8 +17,8 @@ const login = async (req, res) => {
   if (!user) {
     throw new Error("Invalid credentials");
   }
-  const jwt = await JWTLogin(user);
-  return res.send({ jwt });
+  const token = await JWTLogin(user);
+  return res.send({ token, user });
 };
 const register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -27,8 +27,8 @@ const register = async (req, res) => {
     throw new Error("The user could not be created");
   }
   delete user.password;
-  const jwt = await JWTLogin(user.id);
-  return res.send({ jwt });
+  const token = await JWTLogin(user.id);
+  return res.send({ token , user});
 };
 
 module.exports = {
